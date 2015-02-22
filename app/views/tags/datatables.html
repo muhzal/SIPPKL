@@ -1,0 +1,89 @@
+#{set 'moreStyles'}
+<link href="@{'public/themes2/css/jquery.dataTables.min.css' }" rel="stylesheet" type="text/css">
+<link href="@{'public/themes2/ui-custom.css'}" rel="stylesheet" type="text/css">
+#{/set}
+<div class="row">
+	<div class="col-lg-12">	
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<i class=" fa fa-th-list "></i> ${_panelTitle} 		
+			</div>	
+			<div class="panel-body">
+				<div class="row">
+					<div class="col-lg-12 text-left">
+						<a href="@{tambah()}"><button class="btn btn-md btn-primary square-btn-adjust"><i class=" fa fa-plus-square"></i> Tambah Pengajuan</button></a>
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="table-responsive"><!-- Table -->
+		                    <table class="table table-striped table-bordered table-hover" id="dataTables">
+		                        <thead>
+		                            <tr>
+			                           #{get 'tableHead' /}
+		                            </tr>
+		                        </thead>
+		                        <tbody>
+		                        	#{get 'tableBody' /}
+		                        </tbody>
+							</table>
+						</div><!-- Table -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+       	<form id="ubahstatusform" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">
+           <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title" id="myModalLabel">Ubah Status</h4>
+           </div>
+                      
+           <div class="modal-body">
+           		
+           		
+			</div>
+           <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary" id="simpan">Save changes</button>
+           </div>
+           </form>
+       </div>
+   </div>
+</div>
+#{set 'moreScripts'}
+  	#{script 'jquery.dataTables.min.js' /}
+  	<script src="@{'public/themes2/js/jquery-ui.min.js'}"></script>
+  	 <script>
+            $(document).ready(function () {            	
+                $('#dataTables').dataTable();
+                $('[data-toggle="tooltip"]').tooltip();
+                $('#myModal').on('show.bs.modal', function (event) {
+                	 var button = $(event.relatedTarget);
+                	 var recipient = button.data('siswa');
+                	 var edit=#{jsAction @Siswas.ubahStatus(':id') /};
+                	 $('.modal-body').load(edit({id : recipient}), function() {
+                         $('#content').css('visibility', '');
+                     })
+                });
+                $('#ubahstatusform').submit(function(e){
+                	e.preventDefault();
+                	var simpanStatus=#{jsRoute @Siswas.simpanStatus(':siswa') /};
+                	var formstatus=$(this).serialize();
+                	$.ajax({
+                	url : simpanStatus.url(),
+                	data : formstatus,
+                	type : 'PUT',
+                	success:function(data){                		                            
+                        $('#myModal').modal('hide');
+                	}
+                	});
+                });
+        	});
+  	  </script>
+#{/set}

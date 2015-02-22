@@ -1,0 +1,125 @@
+#{extends 'public/themes2/index.html' /}
+<!-- panel -->
+#{set 'panel_content'}
+<div id="datauser"><!-- Table -->	
+</div><!-- Table -->	
+#{/set}
+#{panel title:'Data User', buttonTitle: ' Tambah User', buttonLink: '#' /}	
+#{modal modalName:'modaltambah',title:'Tambah User', modalBody:'bodyedit' /}
+<div class="modal fade" id="modalubah" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+       	<form id="formubah" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">
+           <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title" id="myModalLabel">Ubah User</h4>
+           </div>                      
+           <div class="modal-body" id="bodyubah">
+           		
+			</div>
+           <div class="modal-footer">
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary" id="simpan">Save</button>
+           </div>
+           </form>
+       </div>
+   </div>
+</div>
+<div class="modal fade" id="removemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+       	<form id="formhapus" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">
+           
+                      
+           <div class="modal-body text-center" id="HapusText">
+           		<h4>Apakah anda yakin akan menghapus User ini ?</h4>
+			</div>
+           <div class="modal-footer">
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Batal</button>
+               <button type="submit" class="btn btn-danger" id="yeshapus">Hapus</button>
+           </div>
+           </form>
+       </div>
+   </div>
+</div>
+
+<!-- More CSS -->
+#{set 'moreStyles'}
+<link href="@{'public/themes2/css/jquery.dataTables.min.css' }" rel="stylesheet" type="text/css">
+<link href="@{'public/themes2/ui-custom.css'}" rel="stylesheet" type="text/css">
+#{/set}
+
+<!-- More JavaScript -->
+#{set 'moreScripts'}
+  	<script src="@{'public/themes2/js/jquery-ui.min.js'}"></script>
+  	<script src="@{'public/themes2/js/jquery.dataTables.min.js'}"></script>
+  	
+  	<script>
+  	$(document).ready(function () {  	
+ 	//=====Load list user=====//
+		 	var list=#{jsAction @Master.listuser() /}; 		
+		 	$('#datauser').load(list());
+	//=====tombol tambah========		 	
+           $('#panelButton').click(function(){
+        	   $('#modaltambah').modal('show');
+           });
+	//=======load halaman tambah user ke modal=====//
+           $('#modaltambah').on('show.bs.modal', function (event) {
+        	   var tambahuser=#{jsAction @Master.tambahuser() /}; 		
+   		 		$('#bodyedit').load(tambahuser());
+           });
+	//========onsubmit form di modal===========//
+           $('#formModal').submit(function(e){
+	           	e.preventDefault();
+	           	var tambah=#{jsRoute @Master.tambahuser() /};
+	           	var formModal=$(this).serialize();
+	           	$.ajax({
+	           	url : tambah.url(),
+	           	data : formModal,
+	           	type : 'POST',
+	           	success:function(data){                		                            
+	                   $('#modaltambah').modal('hide');
+	                   $('#datauser').load(list());
+	           		}
+	           	});
+           });
+//=================
+           $('#modalubah').on('show.bs.modal', function (event) {
+        	   var button = $(event.relatedTarget);
+               var recipient = button.data('id');
+        	   var ubahuser=#{jsAction @Master.ubahuser(':id') /}; 		
+   		 	   $('#bodyubah').load(ubahuser({id:recipient}));
+           });
+           $('#formubah').submit(function(e){
+              	e.preventDefault();
+              	var tambah=#{jsRoute @Master.tambahuser() /};
+              	var formtambah=$(this).serialize();
+              	$.ajax({
+              	url : tambah.url(),
+              	data : formtambah,
+              	type : 'POST',
+              	success:function(data){                		                            
+                      $('#modalubah').modal('hide');
+                      $('#datauser').load(list());
+              	}
+              	});
+              });
+         //======================
+	      	$('#removemodal').on('show.bs.modal',function(event){
+	 			iduser=$(event.relatedTarget).data('id');
+	 		});
+		   	$('#yeshapus').click(function(e){
+		   		e.preventDefault();
+		   		var funchapus=#{jsRoute @Master.hapususer(':id') /};
+		   		$.ajax({
+		   			url: funchapus.url({id: iduser}),
+		   			type: 'POST',
+		   			success: function(){
+		   				$('#removemodal').modal('hide');
+		   				$('#datauser').load(list());
+		   			}
+		   		});
+		   	});
+  	});
+  	</script>
+#{/set}

@@ -1,0 +1,66 @@
+#{extends 'public/themes2/index.html' /}
+<div class="row">
+	<div class="col-lg-12">	
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<i class=" fa fa-th-list "></i> Data Pengajuan yang Pernah Masuk 		
+			</div>	
+			<div class="panel-body">				
+				<br>
+				<div class="row">
+					<div class="col-lg-12" id="listpengajuan">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+#{modal title:'Edit Pengajuan',modalName:'editModal',modalBody:'bodyedit'/}
+
+
+<!-- More CSS -->
+#{set 'moreStyles'}
+<link href="@{'public/themes2/css/jquery.dataTables.min.css' }" rel="stylesheet" type="text/css">
+<link href="@{'public/themes2/ui-custom.css'}" rel="stylesheet" type="text/css">
+#{/set}
+#{set 'moreScripts'}
+<script src="@{'public/themes2/js/jquery-ui.min.js'}"></script>
+<script src="@{'public/themes2/js/jquery.dataTables.min.js'}"></script>
+
+<script>
+$(document).ready(function () {
+ 	//=====Load list Pengajuan=====//
+ 	var list=#{jsAction @Arsip.listpengajuan() /}; 		
+ 	$('#listpengajuan').load(list());
+
+  	//=====Edit Pengajuan=====//  	
+		$('#editModal').on('show.bs.modal',function(event){			
+			var idpengajuan=$(event.relatedTarget).data('pengajuan');
+			var editPengajuan=#{jsAction @Pengajuans.editPengajuan(':id') /};			
+			$('#bodyedit').load(editPengajuan({id : idpengajuan}),function( response, status, xhr ) {
+				  if ( status == "error" ) {
+					    var msg = "Sorry but there was an error: ";
+					    $( '#bodyedit' ).html( msg + xhr.status + " " + xhr.statusText );
+					  }
+			});
+		});		
+  	//=======SImpan Edit==========
+
+  		$('#formModal').submit(function(e){
+  			e.preventDefault();
+  			var simpanEdit=#{jsRoute @Pengajuans.simpanEdit(':pengajuan') /};
+  			var formModal=$('#formModal').serialize();
+  			$.ajax({
+  				url: simpanEdit.url(),
+  				data : formModal,
+  				type: 'POST',
+  				success: function(){
+  					$('#editModal').modal('hide');
+  					$('#listpengajuan').load(list());
+  				}
+  		    });  						  				
+  		});
+});
+</script>
+#{/set}

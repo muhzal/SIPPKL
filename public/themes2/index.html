@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Free Bootstrap Admin Template : Binary Admin</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link href="@{'public/themes2/css/bootstrap.min.css'}" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+   <link href="@{'public/themes2/css/font-awesome.min.css'}" rel="stylesheet" type="text/css">
+   <link href="@{'public/themes2/jquery-ui.min.css'}" rel="stylesheet" type="text/css">
+   
+   	#{get 'moreStyles' /}	
+   	 <!-- CUSTOM STYLES-->
+    <link href="@{'public/themes2/css/custom.css'}" rel="stylesheet" />
+<!--      GOOGLE FONTS -->
+<!--    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' /> -->
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="@{Home.index()}">SISTEM INFORMASI PENDATAAN KERJA PRAKTIK</a> 
+            </div>
+  <div style="color: white;
+padding: 15px 50px 5px 50px;
+float: right;
+font-size: 16px;">&nbsp; <a href="#" class="btn btn-default square-btn-adjust">Logout</a> </div>
+        </nav>   
+           <!-- /. NAV TOP  -->
+                <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+				<li class="text-center">
+                    <img src="@{'public/images/logo.png'}" class="user-image img-responsive"/>
+					</li>
+				
+					
+                    <li>
+                        <a href="@{Home.index()}"><i class="fa fa-home fa-3x"></i> Beranda</a>
+                    </li> 
+                 	 <li>
+                        <a  href="@{Pengajuans.index()}"><i class="fa fa-envelope fa-3x"></i> Data Pengajuan</a>
+                    </li>                   										                   
+                    <li>
+                        <a href="#"><i class="fa fa-folder-open fa-3x"></i> Data Kerja Praktik<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@{Siswas.smk()}"><i class="fa fa-book fa-2x"> </i>SMK</a>
+                            </li>
+                            <li>
+                                <a href="@{Siswas.mahasiswa()}"><i class="fa fa-mortar-board fa-2x"></i>Mahasiswa</a>
+                            </li>                            
+                        </ul>
+                      </li>                 										                   
+                    <li>
+                        <a href="#"><i class="fa fa-database fa-3x"></i> Data Master<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@{Master.divisi()}"><i class="fa fa-sitemap fa-2x"></i>Data Divisi</a>
+                            </li> 
+		                 	 <li>
+		                        <a  href="@{Master.user()}"><i class="fa fa-users fa-2x"></i> Data User</a>
+		                    </li>  
+                            <li>
+                                <a href="#"><i class="fa fa-check-square-o fa-2x"></i>Kelola Status</a>
+                            </li>                           
+                        </ul>
+                      </li> 	           										                   
+                    <li>
+                        <a href="#"><i class="fa fa-archive fa-3x"></i> Arsip<span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a href="@{Arsip.pengajuan()}"><i class="fa fa-check-square-o fa-2x"></i>Pengajuan</a>
+                            </li>
+                            <li>
+                                <a href="@{Arsip.smk()}"><i class="fa fa-check-square-o fa-2x"></i>SMK</a>
+                            </li>
+                            <li>
+                                <a href="@{Arsip.mahasiswa()}"><i class="fa fa-check-square-o fa-2x"></i>Mahasiswa</a>
+                            </li>                            
+                        </ul>
+                      </li> 
+                </ul>
+<!-- 				<p class="text-center"> Developed by Muhammad Rizal & Mohammad Rezza F</p>                -->
+            </div>
+            
+        </nav>
+          
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            #{doLayout/}
+             <!-- /. PAGE INNER  -->
+         </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script src="@{'public/themes2/js/jquery.min.js'}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script src="@{'public/themes2/js/bootstrap.min.js'}"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script src="@{'public/themes2/js/metisMenu.min.js'}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script src="@{'public/themes2/js/custom.js'}"></script>   
+		#{get 'moreScripts' /}    
+</body>
+</html>

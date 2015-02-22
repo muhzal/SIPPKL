@@ -1,0 +1,62 @@
+#{extends 'public/themes2/index.html' /}
+<!-- panel -->
+
+<div class="row">
+	<div class="col-lg-12">	
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<i class=" fa fa-th-list "></i> Data PKL Mahasiswa
+			</div>	
+			<div class="panel-body">
+				
+				<div class="row">
+					<div class="col-lg-12" id="contentmahasiswa">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>		
+#{modal modalName:'modalstatus',title:'Ubah Status', modalBody:'bodyedit' /}
+
+<!-- More CSS -->
+#{set 'moreStyles'}
+<link href="@{'public/themes2/css/jquery.dataTables.min.css' }" rel="stylesheet" type="text/css">
+<link href="@{'public/themes2/ui-custom.css'}" rel="stylesheet" type="text/css">
+#{/set}
+
+<!-- More JavaScript -->
+#{set 'moreScripts'}#{script 'jquery.dataTables.min.js' /}	
+  	<script src="@{'public/themes2/js/jquery-ui.min.js'}"></script>
+  	<script src="@{'public/themes2/js/jquery.dataTables.min.js'}"></script>
+  	
+  	<script>
+  	$(document).ready(function () {  	
+ 	//=====Load list siswa=====//
+		 	var list=#{jsAction @Siswas.listmahasiswa() /} 		
+		 	$('#contentmahasiswa').load(list());
+	//=====Status Button========		 	
+            $('#modalstatus').on('show.bs.modal', function (event) {
+           	 var button = $(event.relatedTarget);
+           	 var recipient = button.data('siswa');
+           	 var edit=#{jsAction @Siswas.ubahStatus(':id') /};
+           	 $('#bodyedit').load(edit({id : recipient}));                
+           });
+            $('#formModal').submit(function(e){
+            	e.preventDefault();
+            	var simpanStatus=#{jsRoute @Siswas.simpanStatus(':siswa') /};
+            	var formstatus=$(this).serialize();
+            	$.ajax({
+            	url : simpanStatus.url(),
+            	data : formstatus,
+            	type : 'PUT',
+            	success:function(data){                		                            
+                    $('#modalstatus').modal('hide');
+                    $('#contentmahasiswa').load(list());
+            	}
+            	});
+            });
+  	});
+  	</script>
+#{/set}

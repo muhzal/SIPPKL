@@ -1,0 +1,25 @@
+<div class="table-responsive">
+    <table class="table table-striped table-bordered table-hover" id="dataTables">
+       <thead>
+            <tr>
+				<th>Nama Divisi</th>
+				<th width="10%">Kuota</th>
+				<th>Aksi</th>
+            </tr>
+        </thead>
+        <tbody id="tablebody">        	
+			#{list divisi}
+				<tr>
+			  		<td>${_?.namadivisi}</td>
+			  		<td>${_?.kuota}</td>
+			  		<td>  					  			
+			  			<button class="btn-info tombolubah" data-target="#modalubah" data-id="${_?.id}" data-toggle="modal" data-placement="top" title="edit data"><i class=" fa fa-pencil"></i> Ubah</button>
+			  			<button class="btn-danger" data-id="${_?.id}" data-target="#removemodal" data-toggle="modal" data-placement="top" title="hapus data"><i class=" fa fa-remove"></i> Hapus</button>
+			  		</td>
+			  	</tr>
+			 #{/list}
+        </tbody>        
+</table>
+<script>
+	 $('#dataTables').dataTable();	
+</script>

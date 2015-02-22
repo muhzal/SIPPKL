@@ -1,0 +1,56 @@
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Nama</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="text" name="siswa.nama" value="${siswa?.nama}" class="form-control" />
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Jenis Kelamin</label>
+	</div>
+	<div class="col-lg-8">
+		#{select 'siswa.jeniskelamin.id', items:jk, valueProperty:'id', labelProperty:'namakelamin', class:'form-control', value:siswa?.jeniskelamin?.id /}
+	</div>								
+</div>						
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Jurusan</label>
+	</div>
+	<div class="col-lg-8">
+		<input id="instansi" value="${siswa?.jurusan}" type="text" name="siswa.jurusan" class="form-control" />
+	</div>								
+</div>	
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Divisi</label>
+	</div>
+	<div class="col-lg-8">
+		
+		#{select 'siswa.divisi.id', items:divisi, valueProperty:'id', labelProperty:'namadivisi', value:siswa?.divisi?.id, class:'form-control'/}
+	</div>								
+</div>
+<input type="hidden" name="siswa.pengajuan.id" value="${siswa?.pengajuan?.id}">
+<input type="hidden" name="siswa.id" value="${siswa?.id}">
+
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Tgl PKL</label>
+	</div>
+	<div class="col-lg-4">
+		<input type="date" name="siswa.tglmulai" value="${siswa?.tglmulai?.format('yyyy-MM-dd')}" class="form-control" id="tglMulai"/>
+	</div>								
+	<div class="col-lg-4">
+		<input type="date" name="siswa.tglselesai" value="${siswa?.tglselesai?.format('yyyy-MM-dd')}" class="form-control" id="tglSelesai"/>
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Status</label>
+	</div>
+	<div class="col-lg-8">
+		
+		#{select 'siswa.status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:siswa?.status?.id, class:'form-control'/}
+	</div>								
+</div>

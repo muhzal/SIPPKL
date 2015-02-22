@@ -1,0 +1,57 @@
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Nama</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="text" name="user.nama" value="${user?.nama}" class="form-control"/>
+		<input type="hidden" name="user.id" value="${user?.id}" class="form-control"/>
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">NIP</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="text" name="user.nip" value="${user?.nip}" class="form-control"/>
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Jabatan</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="text" name="user.jabatan" value="${user?.jabatan}" class="form-control"/>
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Jenis Kelamin</label>
+	</div>
+	<div class="col-lg-8">
+		#{select 'user.jeniskelamin_id.id', items:jk, valueProperty:'id', labelProperty:'namakelamin', class:'form-control', value:user?.jeniskelamin_id?.id /}
+	</div>								
+</div>		
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Username</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="text" name="user.username" value="${user?.username}" class="form-control"/>
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Password</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="password" name="user.password" value="${user?.password}" class="form-control"/>
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Level</label>
+	</div>
+	<div class="col-lg-8">
+		#{select 'user.level_id.id', items:level, valueProperty:'id', labelProperty:'namalevel', class:'form-control', value:user?.level_id?.id /}
+	</div>								
+</div>

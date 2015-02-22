@@ -1,0 +1,50 @@
+
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">No Surat</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="text" name="pengajuan.nosurat" value="${pengajuan?.nosurat}" class="form-control" />
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Tanggal Surat</label>
+	</div>
+	<div class="col-lg-8 date">
+		<input type="date" name="pengajuan.tglsurat" value="${pengajuan?.tglsurat?.format('yyyy-MM-dd')}" class="form-control" />
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Jenis Instansi</label>
+	</div>
+	<div class="col-lg-8">
+		#{select 'pengajuan.jenisinstansi_id.id', items:jenis, valueProperty:'id', labelProperty:'namajenis', class:'form-control', value:pengajuan?.jenisinstansi_id.id /}
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Nama Instansi</label>
+	</div>
+	<div class="col-lg-8">
+		<input id="instansi" type="text" name="pengajuan.namainstansi" value="${pengajuan?.namainstansi}" class="form-control" />
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">No Telp</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="number" name="pengajuan.notelp" value="${pengajuan?.notelp}" class="form-control" />
+	</div>								
+</div>
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">Jumlah Orang</label>
+	</div>
+	<div class="col-lg-8">
+		<input type="number" name="pengajuan.jumlahorang" class="form-control" value="${pengajuan?.jumlahorang}" disabled/>
+	</div>									
+</div>
+<input type="hidden" name="pengajuan.id" value="${pengajuan?.id}" />

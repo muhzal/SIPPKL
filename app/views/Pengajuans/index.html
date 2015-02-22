@@ -1,0 +1,86 @@
+#{extends 'public/themes2/index.html' /}
+<!-- panel -->
+#{set 'panel_content'}
+<div class="table-responsive" id="listpengajuan">
+
+</div>	
+#{/set}
+#{panel title:'Data Pengajuan Kerja Praktik', buttonTitle: 'Tambah Pengajuan', buttonLink: 'tambah' /}	
+
+<!-- Modal -->
+#{modal title:'Edit Pengajuan',modalName:'editModal',modalBody:'bodyedit'/}
+#{remove title:'Hapus Pengajuan',id:'removeModal'/}
+
+<!-- More CSS -->
+#{set 'moreStyles'}
+<link href="@{'public/themes2/css/jquery.dataTables.min.css' }" rel="stylesheet" type="text/css">
+<link href="@{'public/themes2/ui-custom.css'}" rel="stylesheet" type="text/css">
+#{/set}
+
+<!-- More JavaScript -->
+#{set 'moreScripts'}
+  	#{script 'jquery.dataTables.min.js' /}
+  	<script src="@{'public/themes2/js/jquery-ui.min.js'}"></script>
+  	<script>
+  	$(document).ready(function () {
+	//==== Variable----//
+
+	 var idarsip;
+	//=====Tooltip=====//
+  		$('[data-toggle="tooltip"]').tooltip();
+  	//=====Edit Pengajuan=====//  	
+		$('#editModal').on('show.bs.modal',function(event){			
+			var idpengajuan=$(event.relatedTarget).data('pengajuan');
+			var editPengajuan=#{jsAction @Pengajuans.editPengajuan(':id') /};			
+			$('#bodyedit').load(editPengajuan({id : idpengajuan}),function( response, status, xhr ) {
+				  if ( status == "error" ) {
+					    var msg = "Sorry but there was an error: ";
+					    $( '#bodyedit' ).html( msg + xhr.status + " " + xhr.statusText );
+					  }
+			});
+		});		
+  	//=====Simpan Edit Pengajuan=======//
+  		$('#formModal').submit(function(e){
+  			e.preventDefault();
+  			var simpanEdit=#{jsRoute @Pengajuans.simpanEdit(':pengajuan') /};
+  			var formModal=$('#formModal').serialize();
+  			$.ajax({
+  				url: simpanEdit.url(),
+  				data : formModal,
+  				type: 'POST',
+  				success: function(){
+  					$('#editModal').modal('hide');
+  					loadPengajuan.load(listpengajuan());
+  				}
+  		    });  						  				
+  		});
+  	//=====Load list pengajuan=====//
+			 var listpengajuan=#{jsAction @Pengajuans.listPengajuan() /};
+		var loadPengajuan=$('#listpengajuan').load(listpengajuan(),function( response, status, xhr ) {
+			  if ( status == "error" ) {
+				    var msg = "Sorry but there was an error: ";
+				    $( '#tablebody' ).html( msg + xhr.status + " " + xhr.statusText );
+				 }
+        });	
+  	//========Delete Button=========////
+  	
+  		$('#removeModal').on('show.bs.modal',function(event){
+  			idarsip=$(event.relatedTarget).data('pengajuan');
+  		});
+  		$('#yesButton').click(function(e){
+  			e.preventDefault();
+  			var arsipPengajuan=#{jsRoute @Pengajuans.arsip(':id') /};
+  			$.ajax({
+  				url: arsipPengajuan.url({id: idarsip}),
+  				type: 'POST',
+  				success: function(){
+  					$('#removeModal').modal('hide');
+  					loadPengajuan.load(listpengajuan());
+  				}
+  			});
+  		});
+  		
+  	//=========================================
+  	});
+  	</script>  	
+#{/set}

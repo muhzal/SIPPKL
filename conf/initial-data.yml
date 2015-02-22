@@ -1,0 +1,65 @@
+#Jenis Kelamin
+
+JenisKelamin(lakilaki):
+    namakelamin: Laki-laki
+    kode: L
+
+JenisKelamin(perempuan):
+    namakelamin: Perempuan
+    kode: P    
+
+#Level
+Level(4dmin):
+    namalevel: admin
+Level(sdm):
+    namalevel: SDM
+    
+#Jenis Instansi
+JenisInstansi(smk):
+    namajenis: SMK
+JenisInstansi(univ):
+    namajenis: Mahasiswa
+
+#divisi
+Divisi(sdm):
+    namadivisi: 'Sumber Daya Manusia' 
+    kuota: 2
+Divisi(sekretariat):
+    namadivisi: 'Sekretariat Perusahaan' 
+    kuota: 2
+Divisi(pensi):
+    namadivisi: 'Pengawasan Internal' 
+    kuota: 2
+Divisi(angkuntan):
+    namadivisi: 'Anggaran dan Akuntansi' 
+    kuota: 2
+Divisi(bendahara):
+    namadivisi: 'Perbendaharaan' 
+    kuota: 2
+Divisi(ti):
+    namadivisi: 'Teknologi Informasi' 
+    kuota: 2
+    
+#Status
+Status(proses):
+    namastatus: Proses
+Status(aktif):
+    namastatus: Aktif
+Status(disetujui):
+    namastatus: Disetujui
+Status(menunggu):
+    namastatus: Menunggu
+Status(ditolak):
+    namastatus: Tolak
+Status(selesai):
+    namastatus: Selesai    
+
+#User
+User(admin):
+   jabatan: Admin
+   jeniskelamin_id: lakilaki
+   level_id: 4dmin
+   nama: Rizal
+   nip: H1L012037
+   password: admin
+   username: admin               
