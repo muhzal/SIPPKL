@@ -3,6 +3,7 @@ package controllers;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import models.Divisi;
@@ -26,12 +27,14 @@ public class Siswas extends Controller {
 		render(siswa,status);
 	}	
 	public static void listsmk(){
-		List siswa=Siswa.find("pengajuan.jenisinstansi_id=1").fetch();
-		render(siswa);
+		List siswa=Siswa.find("pengajuan.jenisinstansi_id=1 and status.id!=6").fetch();
+		List<Status> status=Status.findAll();
+		render(siswa,status);
 	}
 	public static void listmahasiswa(){
-		List siswa=Siswa.find("pengajuan.jenisinstansi_id=2").fetch();
-		render(siswa);
+		List siswa=Siswa.find("pengajuan.jenisinstansi_id=2 and status.id!=6").fetch();
+		List<Status> status=Status.findAll();
+		render(siswa,status);
 	}
 	public static void ubahStatus(long id){
 		Siswa siswa =Siswa.findById(id);
@@ -55,14 +58,17 @@ public class Siswas extends Controller {
 		siswa.save();
 		smk();
 	}
-	public static void tambah(long id, Siswa siswa,String tglmulai,String tglselesai) throws ParseException{
+	public static void tambah(long id, Siswa siswa,Date tglmulai,Date tglselesai){
 		if (siswa.nama == null) {
 			List<Divisi> divisi=Divisi.findAll();
 			List<Status> status=Status.findAll();	
 			List<JenisKelamin> jk=JenisKelamin.findAll();
 			Pengajuan pengajuan=Pengajuan.findById(id);
 			render(divisi,status,jk,pengajuan);
-		}else{					
+		}else{
+			siswa.tglmulai=tglmulai;
+			siswa.tglselesai=tglselesai;
+					
 			siswa.save();
 			Pengajuans.index();
 		}			
@@ -78,11 +84,6 @@ public class Siswas extends Controller {
 		List<JenisKelamin> jk=JenisKelamin.findAll();
 		Siswa siswa=Siswa.findById(id);
 		render(siswa,divisi,status,jk);
-	}
-	public static void coba(Siswa siswa){
-		String x=siswa.tglmulai.getClass().getName();
-		render(x);
-		
 	}
 }
 

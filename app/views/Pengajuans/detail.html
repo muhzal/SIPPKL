@@ -1,5 +1,4 @@
 #{extends 'public/themes2/index.html' /}
-
 <div class="panel panel-primary">
 	<div class="panel-heading">
 	<i class=" fa fa-th-list "></i> Detail Pengajuan Kerja Praktik 		
@@ -32,7 +31,7 @@
                          <tr>
                              <th>Jumlah Orang</th>
                              <td>:</td>
-                             <td>${pengajuan?.jumlahorang}</td>
+                             <td id="jumlahorang">${pengajuan?.jumlahorang}</td>
                          </tr>	                                                  
                      </tbody>
                  </table>
@@ -40,6 +39,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="panel panel-primary">
 	<div class="panel-heading">
 	<i class=" fa fa-th-list "></i> Daftar Siswa ${pengajuan?.namainstansi}  		
@@ -52,10 +52,8 @@
 				<button class="btn btn-md btn-info" id="panelButton"><i class=" fa fa-plus-square"></i> Tambah Siswa</button>
 				#{/if}
 				<button class="btn btn-md btn-success" id="statusbutton"><i class=" fa fa-refresh"></i> Ubah Status</button>
-			</div>
-			
-		</div>
-		
+			</div>			
+		</div>		
 		<br>
 		<div class="row">
 			<div class="col-lg-12" id="tablesiswa">
@@ -63,7 +61,7 @@
             </div>
         </div>
     </div>
-</div>    
+</div>
 #{modal modalName:'tambahsiswa',title:'Tambah Siswa', modalBody:'bodyadd' /}     
 
 <div class="modal fade" id="ubahsiswa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -135,6 +133,8 @@
   	<script src="@{'public/themes2/js/jquery.dataTables.min.js'}"></script>
   	<script>
   	$(document).ready(function () {     		 
+          
+		
  		var idpengajuan=${pengajuan?.id};
       	var listsiswa=#{jsAction @Siswas.listsiswa(':id') /};
       	var idsiswa;
@@ -152,15 +152,16 @@
 //=============FUNGSI MENYIMPAN FORM=============================//
         function simpan(e,formstatus){
            	e.preventDefault();
-           	var simpanStatus=#{jsRoute @Siswas.coba(':siswa') /};            	
+           	var simpanStatus=#{jsRoute @Siswas.tambah(':siswa') /};            	
            	$.ajax({
 	           	url : simpanStatus.url(),
 	           	data : formstatus,
 	           	type : 'PUT',
-            	success:function(data){             
-            		alert(data);
+            	success:function(data){
+            		var x = $('#jumlahorang').text();
                     $('#tambahsiswa').modal('hide');
-                    $('#tablesiswa').load(listsiswa({id:idpengajuan}));                   	                    
+                    $('#tablesiswa').load(listsiswa({id:idpengajuan}));
+            		$('#jumlahorang').text(parseInt(x)+1);
             		}
             });            
 		}
@@ -191,8 +192,10 @@
     			url: funchapus.url({id: idsiswa}),
     			type: 'POST',
     			success: function(){
+    				var x = $('#jumlahorang').text();
     				$('#removemodal').modal('hide');
     				$('#tablesiswa').load(listsiswa({id:idpengajuan}));
+            		$('#jumlahorang').text(parseInt(x)-1);
     			}
     		});
     	});
@@ -236,7 +239,7 @@
 			          	type : 'GET',
 			          	data : {id : formstatus,status_id: status_id},
 			          	success:function(data){                		                            
-			            		console.log('sukses');			                          	                    
+			                  $('#tablesiswa').load(listsiswa({id:idpengajuan}));    		                          	                    
 			          		}
 			         });
 				}

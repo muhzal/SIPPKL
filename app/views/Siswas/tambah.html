@@ -36,10 +36,10 @@
 		<label class="control-label">Tgl PKL</label>
 	</div>
 	<div class="col-lg-4">
-		<input type="date" name="siswa?.tglmulai" value="${siswa?.tglmulai}" class="form-control" id="tglMulai"/>
+		<input type="text" name="tglmulai" value="${siswa?.tglmulai}" class="form-control" id="tglMulai"/>
 	</div>								
 	<div class="col-lg-4">
-		<input type="date" name="siswa?.tglselesai" value="${siswa?.tglselesai}" class="form-control" id="tglSelesai"/>
+		<input type="text" name="tglselesai" value="${siswa?.tglselesai}" class="form-control" id="tglSelesai"/>
 	</div>								
 </div>
 <div class="form-group">
@@ -54,16 +54,16 @@
 <input type="hidden" name="siswa.pengajuan.id" value="${pengajuan?.id}">
 <script>
 $(document).ready(function () {     	
-// 	$('#tglMulai').datepicker({
-// 		showAnim : 'slideDown',
-// 		dateFormat : 'yy-mm-dd',
-// 	});
-// 	$('#tglSelesai').datepicker({
-// 		showAnim : 'slideDown',
-// 		dateFormat : 'yy-mm-dd',
-// 		changeYear: true,
-// 		changeMonth: true,
-// 	});
+	$('#tglMulai').datepicker({
+		showAnim : 'slideDown',
+		dateFormat : 'yy-mm-dd',
+	});
+	$('#tglSelesai').datepicker({
+		showAnim : 'slideDown',
+		dateFormat : 'yy-mm-dd',
+		changeYear: true,
+		changeMonth: true,
+	});
 	
 });
 

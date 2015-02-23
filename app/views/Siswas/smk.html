@@ -8,7 +8,12 @@
 				<i class=" fa fa-th-list "></i> Data PKL SMK
 			</div>	
 			<div class="panel-body">
-				
+				<div class="row">
+					<div class="col-lg-12 text-left">
+						<button class="btn btn-md btn-success" id="statusbutton"><i class=" fa fa-refresh"></i> Ubah Status</button>
+					</div>
+				</div>
+				<br>
 				<div class="row">
 					<div class="col-lg-12" id="contentsmk">
 						
@@ -69,12 +74,12 @@
   	<script>
   	$(document).ready(function () {  	
  	//=====Load list siswa=====//
-		 	var listsmk=#{jsAction @Siswas.listsmk() /} 		
+		 	var listsmk=#{jsAction @Siswas.listsmk() /} ;		 	
 		 	$('#contentsmk').load(listsmk());
+		 	
 		 	var idsiswa   	  
 	    	$('#removemodal').on('show.bs.modal',function(event){
-	  			idsiswa=$(event.relatedTarget).data('siswa');
-	  			console.log(idsiswa);
+	  			idsiswa=$(event.relatedTarget).data('siswa');	  			
 	  		});
 	    	$('#yeshapus').click(function(e){
 	    		  e.preventDefault();
@@ -88,50 +93,71 @@
 	    				}
 	  			});
 	    	 });
+    		$('#statusbutton').click(function(){
+    			$('.status-kp').each(function(){
+    				if($(this).prop("disabled")){
+    					$(this).prop({disabled:false});						
+    					$('#statusbutton').html('<i class="fa fa-save"></i> Simpan Status');						
+    				}else{
+    					$(this).prop({disabled:true});					
+    					$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");
+    					var simpanubah=#{jsRoute @Siswas.simpanUbahStatus() /};
+    					var formstatus=$(this).closest('td').find(':input[type="hidden"]').val();
+    					var status_id=$(this).val();			      
+    					$.ajax({
+    			          	url : simpanubah.url(),
+    			          	type : 'GET',
+    			          	data : {id : formstatus,status_id: status_id},
+    			          	success:function(data){                		                            
+    	                    	$('#contentsmk').load(listsmk());			                          	                    
+    			          		}
+    			         });
+    				}
+    			});
+    		});
 	//=====Ketika Modal Status muncul========/		 	
             $('#modalstatus').on('show.bs.modal', function (event) {
-           	 var button = $(event.relatedTarget);
-           	 var recipient = button.data('siswa');
-           	 var edit=#{jsAction @Siswas.ubahStatus(':id') /};
-           	 $('#bodyedit').load(edit({id : recipient}));
-           });
+           	 	var button = $(event.relatedTarget);
+           	 	var recipient = button.data('siswa');
+           	 	var edit=#{jsAction @Siswas.ubahStatus(':id') /};
+           	 	$('#bodyedit').load(edit({id : recipient}));
+           	});
             $('#formModal').submit(function(e){
             	e.preventDefault();
             	var simpanStatus=#{jsRoute @Siswas.simpanStatus(':siswa') /};
             	var formstatus=$(this).serialize();
             	$.ajax({
-            	url : simpanStatus.url(),
-            	data : formstatus,
-            	type : 'PUT',
-            	success:function(data){                		                            
-                    $('#modalstatus').modal('hide');
-                    $('#datasiswa').load(listsmk());
-            	}
+	            	url : simpanStatus.url(),
+	            	data : formstatus,
+	            	type : 'PUT',
+	            	success:function(data){                		                            
+                    	$('#modalstatus').modal('hide');
+                    	$('#contentsmk').load(listsmk());
+            		}
             	});
             });
             $('#ubahsiswa').on('show.bs.modal', function (event) {
             	 var button = $(event.relatedTarget);
             	 var recipient = button.data('siswa');
-            	 
             	 var edit=#{jsAction @Siswas.ubahsiswa(':id') /};
-            	 $('#bodychange').load(edit({id : recipient}));
-                 })
+            	 $('#bodychange').load(edit({id : recipient}));                 
             });
              $('#formubah').submit(function(e){
              	e.preventDefault();
              	var simpanubah=#{jsRoute @Siswas.tambah(':siswa') /};
              	var formstatus=$(this).serialize();
              	$.ajax({
-             	url : simpanubah.url(),
-             	data : formstatus,
-             	type : 'POST',
-             	success:function(data){                		                            
-                     $('#ubahsiswa').modal('hide');
-   	                    location.reload();                    	                    
-             	}
+	             	url : simpanubah.url(),
+	             	data : formstatus,
+	             	type : 'POST',
+	             	success:function(data){                		                            
+	                     $('#ubahsiswa').modal('hide');
+	                     $('#contentsmk').load(listsmk());                   	                    
+	             	}
              	});
-      //====Tombol Hapus===
-    	   
+          	});
+      
+
     	 
   	});
   	</script>

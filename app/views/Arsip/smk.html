@@ -5,7 +5,7 @@
 	<div class="col-lg-12">	
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<i class=" fa fa-th-list "></i> Data PKL Mahasiswa
+				<i class=" fa fa-th-list "></i> Data PKL SMK
 			</div>	
 			<div class="panel-body">
 				<div class="row">
@@ -15,7 +15,7 @@
 				</div>
 				<br>
 				<div class="row">
-					<div class="col-lg-12" id="contentmahasiswa">
+					<div class="col-lg-12" id="contentsmk">
 						
 					</div>
 				</div>
@@ -74,8 +74,8 @@
   	<script>
   	$(document).ready(function () {  	
  	//=====Load list siswa=====//
-		 	var listmahasiswa=#{jsAction @Siswas.listmahasiswa() /} ;		 	
-		 	$('#contentmahasiswa').load(listmahasiswa());
+		 	var listsmk=#{jsAction @Arsip.listsmk() /} ;		 	
+		 	$('#contentsmk').load(listsmk());
 		 	
 		 	var idsiswa   	  
 	    	$('#removemodal').on('show.bs.modal',function(event){
@@ -89,7 +89,7 @@
 	    				type: 'POST',
 	    				success: function(){
 	    					$('#removemodal').modal('hide');
-	    					$('#contentmahasiswa').load(listmahasiswa());
+	    					$('#contentsmk').load(listsmk());
 	    				}
 	  			});
 	    	 });
@@ -109,7 +109,7 @@
     			          	type : 'GET',
     			          	data : {id : formstatus,status_id: status_id},
     			          	success:function(data){                		                            
-    			            		console.log('sukses');			                          	                    
+    	                    	$('#contentsmk').load(listsmk());			                          	                    
     			          		}
     			         });
     				}
@@ -132,7 +132,7 @@
 	            	type : 'PUT',
 	            	success:function(data){                		                            
                     	$('#modalstatus').modal('hide');
-                    	$('#contentmahasiswa').load(listmahasiswa());
+                    	$('#contentsmk').load(listsmk());
             		}
             	});
             });
@@ -152,7 +152,7 @@
 	             	type : 'POST',
 	             	success:function(data){                		                            
 	                     $('#ubahsiswa').modal('hide');
-	                     $('#contentmahasiswa').load(listmahasiswa());                   	                    
+	                     $('#contentsmk').load(listsmk());                   	                    
 	             	}
              	});
           	});

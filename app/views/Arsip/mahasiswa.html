@@ -74,7 +74,7 @@
   	<script>
   	$(document).ready(function () {  	
  	//=====Load list siswa=====//
-		 	var listmahasiswa=#{jsAction @Siswas.listmahasiswa() /} ;		 	
+		 	var listmahasiswa=#{jsAction @Arsip.listmahasiswa() /} ;		 	
 		 	$('#contentmahasiswa').load(listmahasiswa());
 		 	
 		 	var idsiswa   	  
@@ -109,7 +109,7 @@
     			          	type : 'GET',
     			          	data : {id : formstatus,status_id: status_id},
     			          	success:function(data){                		                            
-    			            		console.log('sukses');			                          	                    
+    			          		$('#contentmahasiswa').load(listmahasiswa());		                          	                    
     			          		}
     			         });
     				}

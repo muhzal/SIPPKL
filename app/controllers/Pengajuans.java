@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.google.gson.*;
@@ -25,17 +26,17 @@ public class Pengajuans extends Controller {
 		render(pengajuan);
 	}	
 //----Menambah data Pengajuan-----///	
-	public static void tambah(Pengajuan pengajuan){
+	public static void tambah(Pengajuan pengajuan,Date tglsurat){
 		
 		if (pengajuan.nosurat == null) {
+			
 			List<Status> status=Status.findAll();
 			List<JenisInstansi> jenis=JenisInstansi.findAll();			
 			render(status,jenis);			
 		}
+			pengajuan.tglsurat=tglsurat;
 			pengajuan.tampil=true;
 			pengajuan.save();
-			//---Menambahkan Siswa setelah menyimpan data perngajuan
-			//redirect("Pengajuan.tambahSiswa",pengajuan);
 			tambahSiswa(pengajuan);
 	}
 	
@@ -58,7 +59,8 @@ public class Pengajuans extends Controller {
 		List<JenisInstansi> jenis=JenisInstansi.findAll();
 		render(pengajuan,jenis);
 	}
-	public static void simpanEdit(Pengajuan pengajuan){
+	public static void simpanEdit(Pengajuan pengajuan,Date tglsurat){
+		pengajuan.tglsurat=tglsurat;
 		pengajuan.save();		
 		index();
 	}
@@ -71,8 +73,7 @@ public class Pengajuans extends Controller {
 //-------Detail Pengajuan-------//
 	public static void detail(long id){
 		Pengajuan pengajuan=Pengajuan.findById(id);
-		List<Siswa> siswa=Siswa.find("pengajuan.id=?", id).fetch();
-		render(pengajuan,siswa);
+		render(pengajuan);
 	}
 	
 }
