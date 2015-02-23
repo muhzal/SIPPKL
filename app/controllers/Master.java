@@ -11,30 +11,7 @@ import play.mvc.Controller;
 
 public class Master extends Controller {
 //==========Mengelola Divisi==========//	
-	public static void divisi(){
-		render();
-	}
-	public static void listdivisi(){
-		List<Divisi> divisi=Divisi.findAll();
-		render(divisi);
-	}
-	public static void tambahdivisi(Divisi divisi){
-		if (divisi.namadivisi != null) {
-			divisi.save();
-			divisi();
-		}else{
-			render();
-		}
-	}
-	public static void ubahdivisi(long id){
-		Divisi divisi=Divisi.findById(id);
-		render(divisi);
-	}
-	public static void hapusdivisi(long id){
-		Divisi divisi=Divisi.findById(id);		
-		divisi.delete();		
-		divisi();
-	}	
+
 //==========Mengelola USER==============//
 	public static void user(){
 		render();

@@ -14,6 +14,7 @@ import play.db.jpa.Model;
 public class Divisi extends Model {
 	public String namadivisi;
 	public int kuota;
+	public int terisi;
 	
 	@OneToMany(mappedBy="divisi",cascade=CascadeType.ALL)
 	public Collection<Siswa> siswa;

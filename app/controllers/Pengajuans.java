@@ -43,15 +43,27 @@ public class Pengajuans extends Controller {
 //----------Menambahkan Siswa KP-----------//	
 	public static void tambahSiswa(Pengajuan pengajuan){		
 		Pengajuan surat=Pengajuan.find("nosurat=? order by id DESC", pengajuan.nosurat).first();
+		List<Divisi> divisi=Divisi.findAll();
+		List<Status> status=Status.findAll();
 		List<JenisKelamin> jk=JenisKelamin.findAll();
-		render(jk,surat);
+		render(jk,surat,divisi,status);
 	}
-	public static void simpanSiswa(List<Siswa> object){				
-			for (Siswa siswa : object) {				
-				siswa.save();
+	public static void simpanSiswa(List<Siswa> object,Date[] tglmulai,Date[] tglselesai){
+		long idpengajuan = 0;
+		int index=0;
+			for (Siswa siswa : object) {
+				siswa.tglmulai=tglmulai[index];
+				siswa.tglselesai=tglselesai[index];
+				idpengajuan=siswa.pengajuan.id;
+				siswa.save();				
+				index++;
 			}				
 			//redirect("Pengajuan.index");
-			index();
+			if(idpengajuan==0){
+				index();	
+			}else{
+				detail(idpengajuan);
+			}
 	}
 //---------Edit Pengajuan----------//
 	public static void editPengajuan(long id){

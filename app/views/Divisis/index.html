@@ -79,19 +79,19 @@
   	$(document).ready(function () {
   		   
  	//=====Load list divisi=====//
-		 	var list=#{jsAction @Master.listdivisi() /}; 		
+		 	var list=#{jsAction @Divisis.listdivisi() /}; 		
 		 	$('#datadivisi').load(list());
 	//=====tombol tambah========		 	
            $('#panelButton').click(function(){
         	   $('#modaltambah').modal('show');
         	   $('#myModalLabel').text('Tambah Divisi');
-        	   var tambahdivisi=#{jsAction @Master.tambahdivisi() /}; 		
+        	   var tambahdivisi=#{jsAction @Divisis.tambahdivisi() /}; 		
    		 		$('#bodytambah').load(tambahdivisi());
            });	
 	//========onsubmit form di modal===========//
            $('#formtambah').submit(function(e){
            	e.preventDefault();
-           	var tambah=#{jsRoute @Master.tambahdivisi() /};
+           	var tambah=#{jsRoute @Divisis.tambahdivisi() /};
            	var formtambah=$(this).serialize();
            	$.ajax({
            	url : tambah.url(),
@@ -107,12 +107,12 @@
            $('#modalubah').on('show.bs.modal', function (event) {
         	   var button = $(event.relatedTarget);
                var recipient = button.data('id');
-        	   var ubahdivisi=#{jsAction @Master.ubahdivisi(':id') /}; 		
+        	   var ubahdivisi=#{jsAction @Divisis.ubahdivisi(':id') /}; 		
    		 		$('#bodyubah').load(ubahdivisi({id:recipient}));
            });
            $('#formubah').submit(function(e){
               	e.preventDefault();
-              	var tambah=#{jsRoute @Master.tambahdivisi() /};
+              	var tambah=#{jsRoute @Divisis.tambahdivisi() /};
               	var formtambah=$(this).serialize();
               	$.ajax({
               	url : tambah.url(),
@@ -130,7 +130,7 @@
 	 		});
 		   	$('#yeshapus').click(function(e){
 		   		e.preventDefault();
-		   		var funchapus=#{jsRoute @Master.hapusdivisi(':id') /};
+		   		var funchapus=#{jsRoute @Divisis.hapusdivisi(':id') /};
 		   		$.ajax({
 		   			url: funchapus.url({id: iddivisi}),
 		   			type: 'POST',

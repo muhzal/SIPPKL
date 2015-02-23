@@ -43,14 +43,14 @@ Divisi(ti):
 #Status
 Status(proses):
     namastatus: Proses
-Status(aktif):
-    namastatus: Aktif
+Status(ditolak):
+    namastatus: Tolak
 Status(disetujui):
     namastatus: Disetujui
 Status(menunggu):
     namastatus: Menunggu
-Status(ditolak):
-    namastatus: Tolak
+Status(aktif):
+    namastatus: Aktif
 Status(selesai):
     namastatus: Selesai    
 

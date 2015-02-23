@@ -12,7 +12,13 @@
 				<tr>
 			  		<td>${_?.namadivisi}</td>
 			  		<td>${_?.kuota}</td>
-			  		<td>  					  			
+			  		<td>  					 
+			  			
+		   			<a href="@{Divisis.detail(_?.id)}">
+		   			<button id="DetailPengajuan" class="btn-primary">
+		   				<i class=" fa fa-search-plus"> </i> Detail
+		   			</button>
+		   			</a> 			
 			  			<button class="btn-info tombolubah" data-target="#modalubah" data-id="${_?.id}" data-toggle="modal" data-placement="top" title="edit data"><i class=" fa fa-pencil"></i> Ubah</button>
 			  			<button class="btn-danger" data-id="${_?.id}" data-target="#removemodal" data-toggle="modal" data-placement="top" title="hapus data"><i class=" fa fa-remove"></i> Hapus</button>
 			  		</td>

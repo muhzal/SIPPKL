@@ -3,7 +3,7 @@
 				           <tr>
 							<th>Nama</th>
 							<th>JK</th>
-							<th>Jurusan</th>
+							<th>Asal Sekolah</th>
 							<th>Divisi</th>
 							<th>Tgl Mulai</th>
 							<th>Tgl Selesai</th>
@@ -17,15 +17,19 @@
 							<tr>
 						  		<td>${_?.nama}</td>
 						  		<td>${_?.jeniskelamin?.kode}</td>
-						  		<td>${_?.jurusan}</td>
+						  		<td>${_?.pengajuan?.namainstansi}</td>
 						  		<td>${_?.divisi?.namadivisi}</td>
 						  		<td>${_?.tglmulai?.format('dd MMM yyy')}</td>
-						  		<td>${_?.tglselesai?.format('dd MMM yyy')}</td>						  								  								  		
-						  		<td>						  		
+						  		<td>${_?.tglselesai?.format('dd MMM yyy')}</td>
+						  								  								  		
+						  		<td>
+						  		
 						  		#{select 'siswa.status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:_?.status?.id, class:'form-control status-kp', disabled: 'disabled'/}
-						  		<input type="hidden" name="siswa.id" value="${_?.id}">						  								  		
+						  		<input type="hidden" name="siswa.id" value="${_?.id}">						  		
+						  		
 						  		</td>
-						  		<td>  								  			
+						  		<td>  		
+						  			
 						  			<button class="btn-info" data-siswa="${_?.id}" data-toggle="modal" data-target="#ubahsiswa" data-placement="top" title="edit data"><i class=" fa fa-edit"></i> Ubah</button>
 						  			<button class="btn-danger" data-siswa="${_?.id}" data-toggle="modal" title="hapus data" data-target="#removemodal"><i class=" fa fa-remove"></i> Hapus</button>
 						  		</td>
