@@ -93,13 +93,20 @@
 	    				}
 	  			});
 	    	 });
+	    	$('.status-siswa').each(function(){
+	    		$(this).show();	    		
+	    	});
     		$('#statusbutton').click(function(){
+				$('.status-siswa').each(function(){
+			 		$(this).toggle();	    		
+			 	});
     			$('.status-kp').each(function(){
+    				$(this).toggle();
     				if($(this).prop("disabled")){
-    					$(this).prop({disabled:false});						
+    					$(this).prop({disabled:false});    					
     					$('#statusbutton').html('<i class="fa fa-save"></i> Simpan Status');						
     				}else{
-    					$(this).prop({disabled:true});					
+    					$(this).prop({disabled:true});
     					$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");
     					var simpanubah=#{jsRoute @Siswas.simpanUbahStatus() /};
     					var formstatus=$(this).closest('td').find(':input[type="hidden"]').val();
@@ -109,7 +116,7 @@
     			          	type : 'GET',
     			          	data : {id : formstatus,status_id: status_id},
     			          	success:function(data){                		                            
-    			            		console.log('sukses');			                          	                    
+    			          		$('#contentmahasiswa').load(listmahasiswa());			                          	                    
     			          		}
     			         });
     				}

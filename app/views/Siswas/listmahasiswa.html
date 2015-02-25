@@ -25,10 +25,10 @@
 			  		<td>${_?.tglmulai?.format('dd MMM yyy')}</td>
 			  		<td>${_?.tglselesai?.format('dd MMM yyy')}</td>
 			  			
-			  		<td>
-						  		#{select 'siswa.status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:_?.status?.id, class:'form-control status-kp', disabled: 'disabled'/}
+			  		<td><b class="status-siswa">${_?.status?.namastatus}</b>
+						  		#{select 'siswa.status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:_?.status?.id, class:'form-control status-kp status-hidden', disabled: 'disabled'/}
 						  		<input type="hidden" name="siswa.id" value="${_?.id}">						  		
-						  		</td>
+					</td>
 			  		<td>  		
 			  			
 			  			<button class="btn-info" data-toggle="modal" data-target="#ubahsiswa" data-siswa="${_?.id}" data-placement="top" title="edit profil"><i class=" fa fa-pencil"></i> Ubah</button>
@@ -41,4 +41,8 @@
 </table>
 <script>
 	 $('#dataTables').dataTable();	
+
+ 	$('.status-kp').each(function(){
+ 		$(this).hide();	    		
+ 	});
 </script>

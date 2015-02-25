@@ -11,8 +11,7 @@
 							<th>Aksi</th>
 				           </tr>
 				       </thead>
-				       <tbody id="tablebody">
-				       	
+				       <tbody id="tablebody">				       	
 						#{list siswa}
 							<tr>
 						  		<td>${_?.nama}</td>
@@ -21,8 +20,8 @@
 						  		<td>${_?.divisi?.namadivisi}</td>
 						  		<td>${_?.tglmulai?.format('dd MMM yyy')}</td>
 						  		<td>${_?.tglselesai?.format('dd MMM yyy')}</td>						  								  								  		
-						  		<td>						  		
-						  		#{select 'siswa.status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:_?.status?.id, class:'form-control status-kp', disabled: 'disabled'/}
+						  		<td><b class="status-siswa">${_?.status?.namastatus}</b>						  		
+						  			#{select 'siswa.status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:_?.status?.id, class:'form-control status-kp status-hidden ', disabled: 'disabled'/}
 						  		<input type="hidden" name="siswa.id" value="${_?.id}">						  								  		
 						  		</td>
 						  		<td>  								  			

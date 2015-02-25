@@ -1,9 +1,46 @@
 #{extends 'public/themes2/index.html' /}
+<div id="page-inner">
 <div class="row">
 	<div class="col-lg-12">       
            <button class="btn btn-lg btn-primary square-btn-adjust"><i class=" fa fa-question-circle "></i> Petunjuk</button>
            <button class="btn btn-lg btn-primary square-btn-adjust"><i class=" fa fa-info-circle "></i> Tentang Kami</button>
      </div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-lg-3">
+		<div class="panel panel-back noti-box">
+	       <span class="icon-box bg-color-green set-icon">
+	           <i class="fa fa-file-text-o"></i>
+	       </span>
+	       <div class="text-box">
+	           <p class="main-text">${jmlpengajuan} berkas</p>
+	           <p class="text-muted">Pengajuan</p>
+	       </div>
+	    </div>
+	</div>
+	<div class="col-lg-3">
+		<div class="panel panel-back noti-box">
+	       <span class="icon-box bg-color-blue set-icon">
+	           <i class="fa fa-book"></i>	
+	       </span>
+	       <div class="text-box">
+	           <p class="main-text">${jmlsmk} Orang</p>
+	           <p class="text-muted">Siswa SMK Aktif</p>
+	       </div>
+	    </div>
+	</div>
+	<div class="col-lg-3">
+		<div class="panel panel-back noti-box">
+	       <span class="icon-box bg-color-purple set-icon">
+	           <i class="fa fa-graduation-cap"></i>	
+	       </span>
+	       <div class="text-box">
+	           <p class="main-text">${jmlmahasiswa} Orang</p>
+	           <p class="text-muted">Mahasiswa Aktif</p>
+	       </div>
+	    </div>
+	</div>
 </div>
 <hr>
 <div class="row">
@@ -132,4 +169,5 @@
 			</div>
 		</div>
 	</div>
+</div>
 </div>

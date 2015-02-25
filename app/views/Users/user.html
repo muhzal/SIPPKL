@@ -57,7 +57,7 @@
   	<script>
   	$(document).ready(function () {  	
  	//=====Load list user=====//
-		 	var list=#{jsAction @Master.listuser() /}; 		
+		 	var list=#{jsAction @Users.listuser() /}; 		
 		 	$('#datauser').load(list());
 	//=====tombol tambah========		 	
            $('#panelButton').click(function(){
@@ -65,13 +65,13 @@
            });
 	//=======load halaman tambah user ke modal=====//
            $('#modaltambah').on('show.bs.modal', function (event) {
-        	   var tambahuser=#{jsAction @Master.tambahuser() /}; 		
+        	   var tambahuser=#{jsAction @Users.tambahuser() /}; 		
    		 		$('#bodyedit').load(tambahuser());
            });
 	//========onsubmit form di modal===========//
            $('#formModal').submit(function(e){
 	           	e.preventDefault();
-	           	var tambah=#{jsRoute @Master.tambahuser() /};
+	           	var tambah=#{jsRoute @Users.tambahuser() /};
 	           	var formModal=$(this).serialize();
 	           	$.ajax({
 	           	url : tambah.url(),
@@ -87,12 +87,12 @@
            $('#modalubah').on('show.bs.modal', function (event) {
         	   var button = $(event.relatedTarget);
                var recipient = button.data('id');
-        	   var ubahuser=#{jsAction @Master.ubahuser(':id') /}; 		
+        	   var ubahuser=#{jsAction @Users.ubahuser(':id') /}; 		
    		 	   $('#bodyubah').load(ubahuser({id:recipient}));
            });
            $('#formubah').submit(function(e){
               	e.preventDefault();
-              	var tambah=#{jsRoute @Master.tambahuser() /};
+              	var tambah=#{jsRoute @Users.tambahuser() /};
               	var formtambah=$(this).serialize();
               	$.ajax({
               	url : tambah.url(),
@@ -110,7 +110,7 @@
 	 		});
 		   	$('#yeshapus').click(function(e){
 		   		e.preventDefault();
-		   		var funchapus=#{jsRoute @Master.hapususer(':id') /};
+		   		var funchapus=#{jsRoute @Users.hapususer(':id') /};
 		   		$.ajax({
 		   			url: funchapus.url({id: iduser}),
 		   			type: 'POST',

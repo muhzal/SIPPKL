@@ -1,0 +1,106 @@
+<html>
+<head>
+<style>
+        #container {
+			border:none;
+			}
+		#table1{			
+			margin-left: 75%;}
+        .kei{
+            border-collapse:collapse;
+            border-spacing:0;
+            border-color:#ccc;}
+        .kei td{
+            font-family:Arial, sans-serif;
+            font-size:12px;
+            padding:10px 1px;
+            overflow:hidden;
+            word-break:normal;
+            border-color:#ccc;
+            color:#333;
+            text-align:center;
+            vertical-align: center;
+            
+            background-color:#fff;}
+        .kei th{
+            font-family:Arial, sans-serif;
+            font-size:12px;
+            font-weight: bold;
+            padding:10px 5px;
+            overflow:hidden;
+            word-break:normal;
+            border-color:#ccc;
+            color:#333;
+            background-color:#f0f0f0;}
+    </style>
+
+</head>
+<body>
+
+                              <table class="kei" width="100%" border="1" cellspacing="0" cellpadding="0" style="border-collapse: collapse; -fs-table-paginate: paginate;border-spacing:0">                              
+                                   <thead  >
+                                    	<tr style="height: 90px">
+                                    		<th colspan="6"><center>DAFTAR PESERTA PKL #{if jenis==1}SISWA SMK#{/if}#{else}MAHASISWA#{/else} TAHUN ${new Date().format('yyyy','id')}
+                                    		<br>
+                                    		PT TASPEN PERSERO JAKARTA
+                                    		<br>
+                                    		Bulan ${tglmulai?.format('MMMM','id')} - ${tglselesai.format('MMMM yyyy','id')} </center></th>                                    		                                           
+                                    	</tr>                                    	
+                                        <tr>                                        	
+                                            <th ><center>NO</center></td>
+                                            <th ><center>NAMA SEKOLAH</center></th>                                   
+                                            <th ><center>NAMA PESERTA</center></th> 
+                                            <th ><center>JURUSAN</center></th>     
+                                            <th ><center>WAKTU PELAKSANAAN</center></th>
+                                            <th ><center>DIVISI</center></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>      
+	                                    %{x=0;no=1}%
+	                      				#{list siswa}
+                                  	<tr>		
+												%{rowspan=_?.pengajuan?.jumlahorang;}%												
+												#{if x<1}
+												<td rowspan='${rowspan}' width="2%">${no}</td>																				
+												<td style="width: 20%;" rowspan='${rowspan}'><center>													
+													${_?.pengajuan?.nosurat}<br><br>													
+													${_?.pengajuan?.tglsurat?.format('dd MMMM yyyy','id')}<br><br>
+													${_?.pengajuan?.namainstansi}													
+													</center>
+												</td>
+													%{x=rowspan;no++;}%
+												#{/if}
+											<td style="width: 25%;">${_?.nama}</td>
+											<td style="width: 15%;">${_?.jurusan}</td>
+											<td style="width: 18%;"><center>${_?.tglmulai?.format('dd MMM','id')} - ${_?.tglselesai?.format('dd MMM yyyy','id')}</center></td>											
+											<td style="width: 15%;"><center>${_?.divisi?.namadivisi}</center></td>
+										</tr>	
+												%{x--}%
+									#{/list}   
+									<tr>
+										<td colspan="5">Jumlah</td>
+										<td>${siswa?.size()}</td>
+									</tr>                                                                                 
+                                    </tbody>                                                                     
+                                </table>
+<div id="container">                                
+                                <table class="kei" id="table1">                                	                                	                                         	                                                                       					                              
+	                        		<tr style="font-size: 16">	                        		
+		                        		<td align="center">
+		  									Jakarta, ${new Date().format('dd MMMM yyyy','id')}<br>
+	  										${jabatan}				  								
+		  								</td>
+	  								</tr>
+	  								<tr style="height: 1.5cm">
+	  									</br>
+	  								</tr>
+	  								<tr style="text-transform: uppercase; font-size: 16;">
+	  									<td align="center">
+	  										<u>${atasnama}</u><br>
+	  										${nik}
+	  									</td>
+	  								</tr>   										
+                                </table>
+</div>                                                              
+</body>
+</html>

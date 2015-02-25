@@ -9,7 +9,7 @@ import models.Siswa;
 import models.User;
 import play.mvc.Controller;
 
-public class Master extends Controller {
+public class Users extends Controller {
 //==========Mengelola Divisi==========//	
 
 //==========Mengelola USER==============//

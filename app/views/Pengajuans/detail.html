@@ -16,7 +16,7 @@
                          <tr>
                              <th>Tgl Surat</th>
                              <td>:</td>
-                             <td>${pengajuan?.tglsurat?.format('yyyy-MM-dd')}</td>
+                             <td>${pengajuan?.tglsurat?.format('dd MMMM yyyy','id')}</td>
                          </tr>
                          <tr>
                              <th>Nama Sekolah</th>
@@ -156,7 +156,7 @@
            	$.ajax({
 	           	url : simpanStatus.url(),
 	           	data : formstatus,
-	           	type : 'PUT',
+	           	type : 'POST',
             	success:function(data){
             		var x = $('#jumlahorang').text();
                     $('#tambahsiswa').modal('hide');
@@ -223,7 +223,11 @@
   		});
 //==================================================
 		$('#statusbutton').click(function(){
-			$('.status-kp').each(function(){
+			$('.status-siswa').each(function(){
+		 		$(this).toggle();	    		
+		 	});
+		$('.status-kp').each(function(){
+			$(this).toggle();
 				if($(this).prop("disabled")){
 					$(this).prop({disabled:false});						
 					$('#statusbutton').html('<i class="fa fa-save"></i> Simpan Status');						

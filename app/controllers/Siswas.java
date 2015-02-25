@@ -11,6 +11,7 @@ import models.JenisKelamin;
 import models.Pengajuan;
 import models.Siswa;
 import models.Status;
+import play.data.binding.As;
 import play.mvc.Controller;
 
 public class Siswas extends Controller {	
@@ -27,12 +28,12 @@ public class Siswas extends Controller {
 		render(siswa,status);
 	}	
 	public static void listsmk(){
-		List siswa=Siswa.find("pengajuan.jenisinstansi_id=1 and status.id!=6").fetch();
+		List siswa=Siswa.find("pengajuan.jenisinstansi_id=1 and status.id!=6 or pengajuan.jenisinstansi_id=1 and status.id!=2").fetch();
 		List<Status> status=Status.findAll();
 		render(siswa,status);
 	}
 	public static void listmahasiswa(){
-		List siswa=Siswa.find("pengajuan.jenisinstansi_id=2 and status.id!=6").fetch();
+		List siswa=Siswa.find("pengajuan.jenisinstansi_id=2 and status.id!=6  or pengajuan.jenisinstansi_id=2 and  status.id!=2").fetch();
 		List<Status> status=Status.findAll();
 		render(siswa,status);
 	}
@@ -58,7 +59,7 @@ public class Siswas extends Controller {
 		siswa.save();
 		smk();
 	}
-	public static void tambah(long id, Siswa siswa,Date tglmulai,Date tglselesai){
+	public static void tambah(long id, Siswa siswa,@As("dd-MM-yyyy") Date tglmulai,@As("dd-MM-yyyy") Date tglselesai){
 		if (siswa.nama == null) {
 			List<Divisi> divisi=Divisi.findAll();
 			List<Status> status=Status.findAll();	

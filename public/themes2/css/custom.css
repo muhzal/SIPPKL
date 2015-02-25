@@ -101,7 +101,7 @@ background-color: #00CE6F;
 color: #fff;
 }
  .bg-color-blue {
-background-color: #A95DF0;
+background-color: #2EA7EB;
 color: #fff;
 }
   .bg-color-red {
@@ -112,8 +112,14 @@ color: #fff;
 background-color: #B94A00;
 color: #fff;
 }
-
-
+  .bg-color-white {
+background-color: #F8F8F8;
+color: #fff;
+}
+  .bg-color-purple {
+background-color: #8702A8;
+color: #fff;
+}
  .icon-box-right {
 display: block;
 float: right;
@@ -388,3 +394,6 @@ line-height: 1.428571429;
 }
 
 
+.status-hidden{
+	display:none;
+}

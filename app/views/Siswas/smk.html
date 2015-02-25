@@ -94,7 +94,11 @@
 	  			});
 	    	 });
     		$('#statusbutton').click(function(){
+				$('.status-siswa').each(function(){
+			 		$(this).toggle();	    		
+			 	});
     			$('.status-kp').each(function(){
+    				$(this).toggle();
     				if($(this).prop("disabled")){
     					$(this).prop({disabled:false});						
     					$('#statusbutton').html('<i class="fa fa-save"></i> Simpan Status');						

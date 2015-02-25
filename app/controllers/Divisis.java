@@ -38,7 +38,7 @@ public class Divisis extends Controller {
 		render(divisi);
 	}
 	public static void listsiswa(long id){
-		List<Siswa> siswa=Siswa.find("divisi.id=? and status.id!=6", id).fetch();
+		List<Siswa> siswa=Siswa.find("divisi.id=? and status.id=4 or status.id=5 and divisi.id=?",id,id).fetch();
 		List<Status> status=Status.findAll();
 		render(siswa,status);
 	}

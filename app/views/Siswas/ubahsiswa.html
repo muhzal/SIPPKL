@@ -39,10 +39,10 @@
 		<label class="control-label">Tgl PKL</label>
 	</div>
 	<div class="col-lg-4">
-		<input type="text" name="tglmulai" value="${siswa?.tglmulai?.format('yyyy-MM-dd')}" class="form-control" id="tglMulai"/>
+		<input type="text" name="tglmulai" value="${siswa?.tglmulai?.format('dd-MM-yyyy')}" class="form-control" id="tglMulai"/>
 	</div>								
 	<div class="col-lg-4">
-		<input type="text" name="tglselesai" value="${siswa?.tglselesai?.format('yyyy-MM-dd')}" class="form-control" id="tglSelesai"/>
+		<input type="text" name="tglselesai" value="${siswa?.tglselesai?.format('dd-MM-yyyy')}" class="form-control" id="tglSelesai"/>
 	</div>								
 </div>
 <div class="form-group">
@@ -58,13 +58,11 @@
 $(document).ready(function () {     	
 	$('#tglMulai').datepicker({
 		showAnim : 'slideDown',
-		dateFormat : 'yy-mm-dd',
+		dateFormat : 'dd-mm-yy',
 	});
 	$('#tglSelesai').datepicker({
 		showAnim : 'slideDown',
-		dateFormat : 'yy-mm-dd',
-		changeYear: true,
-		changeMonth: true,
+		dateFormat : 'dd-mm-yy',
 	});
 	
 });

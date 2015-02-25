@@ -13,6 +13,7 @@ import models.Level;
 import models.Pengajuan;
 import models.Siswa;
 import models.Status;
+import play.data.binding.As;
 import play.mvc.Controller;
 
 public class Pengajuans extends Controller {
@@ -48,11 +49,12 @@ public class Pengajuans extends Controller {
 		List<JenisKelamin> jk=JenisKelamin.findAll();
 		render(jk,surat,divisi,status);
 	}
-	public static void simpanSiswa(List<Siswa> object,Date[] tglmulai,Date[] tglselesai){
+	public static void simpanSiswa(List<Siswa> object,@As("dd-MM-yyyy") Date[] tglmulai,@As("dd-MM-yyyy") Date[] tglselesai){
 		long idpengajuan = 0;
 		int index=0;
 			for (Siswa siswa : object) {
 				siswa.tglmulai=tglmulai[index];
+				
 				siswa.tglselesai=tglselesai[index];
 				idpengajuan=siswa.pengajuan.id;
 				siswa.save();				
@@ -71,7 +73,7 @@ public class Pengajuans extends Controller {
 		List<JenisInstansi> jenis=JenisInstansi.findAll();
 		render(pengajuan,jenis);
 	}
-	public static void simpanEdit(Pengajuan pengajuan,Date tglsurat){
+	public static void simpanEdit(Pengajuan pengajuan,@As("dd-MM-yyyy") Date tglsurat){
 		pengajuan.tglsurat=tglsurat;
 		pengajuan.save();		
 		index();

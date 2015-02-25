@@ -2,4 +2,4 @@
 
 require:
     - play
-    - net.sf.flexjson -> flexjson 2.1
+    - play-> pdf 0.9

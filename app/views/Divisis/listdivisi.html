@@ -4,7 +4,8 @@
             <tr>
 				<th>Nama Divisi</th>
 				<th width="10%">Kuota</th>
-				<th>Aksi</th>
+				<th width="10%">Terisi</th>
+				<th width="18%">Aksi</th>
             </tr>
         </thead>
         <tbody id="tablebody">        	
@@ -12,6 +13,7 @@
 				<tr>
 			  		<td>${_?.namadivisi}</td>
 			  		<td>${_?.kuota}</td>
+			  		<td>${_?.terisi}</td>
 			  		<td>  					 
 			  			
 		   			<a href="@{Divisis.detail(_?.id)}">

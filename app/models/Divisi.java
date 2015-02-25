@@ -6,9 +6,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
-import com.google.gson.annotations.Expose;
-
-import flexjson.JSONSerializer;
 import play.db.jpa.Model;
 @Entity
 public class Divisi extends Model {
