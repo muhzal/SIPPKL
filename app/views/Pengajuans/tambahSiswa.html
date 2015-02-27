@@ -22,9 +22,18 @@
 													<label class="control-label">Nama</label>
 												</div>
 												<div class="col-lg-8">
-													<input type="text" name="object[${i}].nama" class="form-control" />
+													<input type="text" name="object[${i}].nama" class="form-control" required/>
 												</div>								
 											</div>
+														
+											<div class="form-group">
+												<div class="col-lg-4">
+													<label class="control-label">NIS</label>
+												</div>
+												<div class="col-lg-8">
+													<input id="instansi" type="text" name="object[${i}].nis" class="form-control" required/>
+												</div>								
+											</div>				
 											<div class="form-group">
 												<div class="col-lg-4">
 													<label class="control-label">Jenis Kelamin</label>
@@ -38,7 +47,7 @@
 													<label class="control-label">Jurusan</label>
 												</div>
 												<div class="col-lg-8">
-													<input id="instansi" type="text" name="object[${i}].jurusan" class="form-control" />
+													<input id="instansi" type="text" name="object[${i}].jurusan" class="form-control" required/>
 												</div>								
 											</div>													
 										<div class="form-group">
@@ -46,7 +55,12 @@
 												<label class="control-label">Divisi</label>
 											</div>
 											<div class="col-lg-8">												
-												#{select 'object['+i+'].divisi.id', items:divisi, valueProperty:'id', labelProperty:'namadivisi', value:siswa?.divisi?.id, class:'form-control'/}
+												
+												#{select 'object['+i+'].divisi.id', class:'form-control'}
+													#{list divisi}
+														#{option _?.id}${_?.kuota} - ${_?.namadivisi}#{/option}
+													#{/list}
+												#{/select}
 											</div>								
 										</div>										
 										<div class="form-group">
@@ -54,10 +68,10 @@
 												<label class="control-label">Tgl PKL</label>
 											</div>
 											<div class="col-lg-4">
-												<input type="text" name="tglmulai[${i}]" value="${siswa?.tglmulai}" class="form-control tglMulai"/>
+												<input type="text" name="tglmulai[${i}]" value="${siswa?.tglmulai}" class="form-control tglMulai" required/>
 											</div>								
 											<div class="col-lg-4">
-												<input type="text" name="tglselesai[${i}]" value="${siswa?.tglselesai}" class="form-control tglSelesai"/>
+												<input type="text" name="tglselesai[${i}]" value="${siswa?.tglselesai}" class="form-control tglSelesai" required/>
 											</div>								
 										</div>
 										<div class="form-group">
@@ -66,13 +80,13 @@
 											</div>
 											<div class="col-lg-8">
 												#{select 'object['+i+'].status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:siswa?.status?.id, class:'form-control'/}
+												<input type="hidden" name="object[${i}].pengajuan.id" value="${surat?.id}" >
 											</div>								
 										</div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<input type="hidden" name="object[${i}].pengajuan.id" value="${surat.id}" >
 							
 							#{/list}
 							<div class="form-group">
@@ -117,6 +131,7 @@
 				$(this).datepicker({
 					showAnim : 'slideDown',
 					dateFormat : 'dd-mm-yy',
+					
 				});
 			});
 			$('.tglSelesai').each(function(){

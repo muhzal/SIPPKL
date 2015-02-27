@@ -8,7 +8,9 @@ import models.Level;
 import models.Siswa;
 import models.User;
 import play.mvc.Controller;
-
+import play.mvc.With;
+@With(Secure.class)
+@Check("admin")
 public class Users extends Controller {
 //==========Mengelola Divisi==========//	
 

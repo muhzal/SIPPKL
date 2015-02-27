@@ -1,0 +1,93 @@
+<style>
+body{
+	margin:auto;
+	padding: 0;
+}
+#nama{	
+	margin:auto;
+	width:80%;
+	font-size: 40pt;
+	overflow:scroll;
+	text-align: center;}
+table{
+	margin-top: 21%;
+	margin-left: auto;
+	margin-right: auto;
+	width:55%;
+	text-align: center;
+	font-size: 14pt;	
+}
+</style>
+
+<div id="background">
+<table border="0">
+	<tr>
+		<td colspan="4">Yang bertanda tangan dibawah ini atas nama PT TASPEN (PERSERO), menerangkan bahwa :</td>
+	</tr>
+	
+	<tr>
+		<td colspan=4 height="15px"></td>
+	</tr>
+	<tr>
+		<td colspan="4" id="nama">${siswa?.nama}</td>
+	</tr>
+	<tr>
+		<td colspan=4 height="15px"></td>
+	</tr>
+	<tr>
+		<td width="20%"></td>
+		<td width="20%">NIS</td>
+		<td align="left">${siswa?.nis}</td>
+		<td></td>	
+	</tr>
+	<tr>
+		<td width="20%"></td>
+		<td width="20%">Jurusan</td>
+		<td align="left">${siswa?.jurusan}</td>
+		<td></td>	
+	</tr>
+	<tr>
+		<td width="20%"></td>
+		<td width="20%">Sekolah</td>
+		<td align="left">${siswa?.pengajuan?.namainstansi}</td>
+		<td></td>		
+	</tr>
+	<tr>
+		<td colspan=4 height="10px"></td>
+	</tr>
+	<tr>
+		<td colspan=4>Telah melaksanakan Praktek Kerja Lapangan di PT TASPEN (PERSERO), 
+Pada bulan ${siswa?.tglmulai?.format('MMMM yyyy')}                                                        
+		</td>
+	</tr>
+	<tr>
+		<td colspan=4 height="15px"></td>
+	</tr>
+	<tr>
+		<td colspan=4>Jakarta, ${new Date().format('dd MMMM yyyy','id')}                   
+		</td>
+	</tr>
+	<tr>
+		<td colspan=4>PT TASPEN (PERSERO)                   
+		</td>
+	</tr>
+	<tr>
+		<td colspan=4 height="20px"></td>
+	</tr>
+	<tr>
+		<td colspan=4 height="20px"></td>
+	</tr>
+	<tr>
+		<td colspan=4>${atasnama}                   
+		</td>
+	</tr>
+	<tr>
+		<td colspan=4>${jabatan}                   
+		</td>
+	</tr>
+
+	<tr>
+		<td colspan=4 height="50px"></td>
+	</tr>
+</table>
+</div>

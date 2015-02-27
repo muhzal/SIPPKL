@@ -3,9 +3,17 @@
 		<label class="control-label">Nama</label>
 	</div>
 	<div class="col-lg-8">
-		<input type="text" name="siswa.nama" value="${siswa?.nama}" class="form-control" />
+		<input type="text" name="siswa.nama" value="${siswa?.nama}" class="form-control" required/>
 	</div>								
-</div>
+</div>	
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">NIS</label>
+	</div>
+	<div class="col-lg-8">
+		<input id="instansi" type="text" name="siswa.nis" class="form-control" required/>
+	</div>								
+</div>			
 <div class="form-group">
 	<div class="col-lg-4">
 		<label class="control-label">Jenis Kelamin</label>
@@ -19,7 +27,7 @@
 		<label class="control-label">Jurusan</label>
 	</div>
 	<div class="col-lg-8">
-		<input id="instansi" type="text" name="siswa.jurusan" class="form-control" />
+		<input id="instansi" type="text" name="siswa.jurusan" class="form-control"  required/>
 	</div>								
 </div>	
 <div class="form-group">
@@ -27,8 +35,12 @@
 		<label class="control-label">Divisi</label>
 	</div>
 	<div class="col-lg-8">
-		
-		#{select 'siswa.divisi.id', items:divisi, valueProperty:'id', labelProperty:'namadivisi', value:siswa?.divisi?.id, class:'form-control'/}
+														
+	#{select 'siswa.divisi.id', class:'form-control'}
+		#{list divisi}
+			#{option _?.id}${_?.kuota} - ${_?.namadivisi}#{/option}
+		#{/list}
+	#{/select}
 	</div>								
 </div>
 <div class="form-group">
@@ -36,10 +48,10 @@
 		<label class="control-label">Tgl PKL</label>
 	</div>
 	<div class="col-lg-4">
-		<input type="text" name="tglmulai" value="${siswa?.tglmulai}" class="form-control" id="tglMulai"/>
+		<input type="text" name="tglmulai" value="${siswa?.tglmulai}" class="form-control" id="tglMulai"  required/>
 	</div>								
 	<div class="col-lg-4">
-		<input type="text" name="tglselesai" value="${siswa?.tglselesai}" class="form-control" id="tglSelesai"/>
+		<input type="text" name="tglselesai" value="${siswa?.tglselesai}" class="form-control" id="tglSelesai"  required/>
 	</div>								
 </div>
 <div class="form-group">
@@ -57,12 +69,17 @@ $(document).ready(function () {
 	$('#tglMulai').datepicker({
 		showAnim : 'slideDown',
 		dateFormat : 'dd-mm-yy',
-	});
+		onClose: function( selectedDate ) {
+	        $( "#tglSelesai" ).datepicker( "option", "minDate", selectedDate );
+	      }
+	});	     	
 	$('#tglSelesai').datepicker({
 		showAnim : 'slideDown',
 		dateFormat : 'dd-mm-yy',
-	});
-	
+		onClose: function( selectedDate ) {
+	        $( "#tglMulai" ).datepicker( "option", "maxDate", selectedDate );
+	      }
+	});	
 });
 
 </script>

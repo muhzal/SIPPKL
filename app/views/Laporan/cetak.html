@@ -59,7 +59,7 @@
 	                                    %{x=0;no=1}%
 	                      				#{list siswa}
                                   	<tr>		
-												%{rowspan=_?.pengajuan?.jumlahorang;}%												
+												%{rowspan=_?.find("pengajuan.id=? and tglmulai BETWEEN ? AND ? order by pengajuan.namainstansi",_?.pengajuan.id,tglmulai,tglselesai).fetch().size()}%												
 												#{if x<1}
 												<td rowspan='${rowspan}' width="2%">${no}</td>																				
 												<td style="width: 20%;" rowspan='${rowspan}'><center>													

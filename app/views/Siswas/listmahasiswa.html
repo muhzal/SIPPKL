@@ -4,12 +4,11 @@
             <tr>
 				<th>Nama</th>
 				<th>JK</th>
-				<th>Jurusan</th>
 				<th>Nama Sekolah</th>
+				<th>Jurusan</th>
+				<th>Tgl PKL</th>
 				<th>Divisi</th>
-				<th>Tgl Mulai</th>
-				<th>Tgl Selesai</th>
-				<th>Status</th>
+				<th width="12%">Status</th>
 				<th>Aksi</th>
             </tr>
         </thead>
@@ -18,29 +17,32 @@
 			#{list siswa}
 				<tr>
 			  		<td>${_?.nama}</td>
-			  		<td>${_?.jeniskelamin.namakelamin}</td>
+			  		<td>${_?.jeniskelamin?.kode}</td>
+			  		<td>${_?.pengajuan?.namainstansi}</td>
 			  		<td>${_?.jurusan}</td>
-			  		<td>${_?.pengajuan.namainstansi}</td>
-			  		<td>${_?.divisi?.namadivisi}</td>
-			  		<td>${_?.tglmulai?.format('dd MMM yyy')}</td>
-			  		<td>${_?.tglselesai?.format('dd MMM yyy')}</td>
+			  		<td class=" text-center">${_?.tglmulai?.format('dd MMM')} - ${_?.tglselesai?.format('dd MMM yyy')}</td>
+			  		<td>${_?.divisi?.namadivisi}<p class="status-hidden">${_?.status?.namastatus}</p></td>
 			  			
 			  		<td><b class="status-siswa">${_?.status?.namastatus}</b>
 						  		#{select 'siswa.status.id', items:status, valueProperty:'id', labelProperty:'namastatus', value:_?.status?.id, class:'form-control status-kp status-hidden', disabled: 'disabled'/}
 						  		<input type="hidden" name="siswa.id" value="${_?.id}">						  		
 					</td>
-			  		<td>  		
-			  			
-			  			<button class="btn-info" data-toggle="modal" data-target="#ubahsiswa" data-siswa="${_?.id}" data-placement="top" title="edit profil"><i class=" fa fa-pencil"></i> Ubah</button>
-			  			<button class="btn-danger" data-toggle="modal" data-target="#removemodal" data-siswa="${_?.id}" data-placement="top" title="hapus data"><i class=" fa fa-remove"></i> Hapus</button>
-
+			  		<td class=" text-center">  					  			
+			  			<button class="btn-info" data-toggle="modal" data-target="#ubahsiswa" data-siswa="${_?.id}" data-placement="top" title="Ubah Profil Siswa"><i class=" fa fa-pencil"></i> Ubah</button>
+<!-- 			  			<button class="btn-danger" data-toggle="modal" data-target="#removemodal" data-siswa="${_?.id}" data-placement="top" title="Hapus Data Siswa"><i class=" fa fa-remove"></i> Hapus</button> -->
+						<button class=" #{if _?.status.id!=6}btn-default#{/if}#{else}btn-success#{/else}" data-siswa="${_?.id}" data-toggle="modal" data-target="#cetaksertifikat" data-placement="top" title="#{if _?.status.id!=6}Status harus selesai untuk mencetak sertifikat#{/if}#{else}Cetak Sertifikat#{/else}" #{if _?.status.id!=6}disabled#{/if}><i class=" fa fa-edit"></i> Sertifikat</button>
+						  		
 			  		</td>
 			  	</tr>
 			 #{/list}
         </tbody>        
 </table>
 <script>
-	 $('#dataTables').dataTable();	
+	 $('#dataTables').dataTable({
+		  "columnDefs": [
+		                 { "searchable": false, "targets": 6 }
+		               ]
+		             });	
 
  	$('.status-kp').each(function(){
  		$(this).hide();	    		

@@ -3,7 +3,7 @@
 <head>
       <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Free Bootstrap Admin Template : Binary Admin</title>
+    <title>SIPPKL</title>
 	<!-- BOOTSTRAP STYLES-->
     <link href="@{'public/themes2/css/bootstrap.min.css'}" rel="stylesheet" />
      <!-- FONTAWESOME STYLES-->
@@ -28,10 +28,16 @@
                 </button>
                 <a class="navbar-brand" href="@{Home.index()}">SISTEM INFORMASI PENDATAAN KERJA PRAKTIK</a> 
             </div>
-  <div style="color: white;
-padding: 15px 50px 5px 50px;
-float: right;
-font-size: 16px;">&nbsp; <a href="#" class="btn btn-default square-btn-adjust">Logout</a> </div>
+		<div style="color: white;padding: 15px 50px 5px 50px;float: right;font-size: 16px;">&nbsp;
+  	<div class="btn-group col-md-12">
+		  <button class="btn btn-default">${controllers.Home.getNama().nama} (${controllers.Home.getNama()?.level_id?.namalevel})</button>
+		  <button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="caret"></span></button>
+		  <ul class="dropdown-menu">
+			<li><a href="@{Secure.logout()}">logout</a></li>
+		  </ul>
+	</div> 
+  		 
+  </div>
         </nav>   
            <!-- /. NAV TOP  -->
                 <nav class="navbar-default navbar-side" role="navigation">
@@ -66,9 +72,11 @@ font-size: 16px;">&nbsp; <a href="#" class="btn btn-default square-btn-adjust">L
                  	 <li>
                         <a  href="@{Laporan.index()}"><i class="fa fa-print fa-3x"></i> Kelola Laporan</a>
                     </li>  
+                    #{secure.check "admin"}
                  	 <li>
                         <a  href="@{Users.user()}"><i class="fa fa-users fa-3x"></i> Data User</a>
-                    </li>   	           										                   
+                    </li>
+                    #{/secure.check}   	           										                   
                     <li>
                         <a href="#"><i class="fa fa-archive fa-3x"></i> Arsip<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
@@ -76,10 +84,13 @@ font-size: 16px;">&nbsp; <a href="#" class="btn btn-default square-btn-adjust">L
                                 <a href="@{Arsip.pengajuan()}"><i class="fa fa-check-square-o fa-2x"></i>Pengajuan</a>
                             </li>
                             <li>
-                                <a href="@{Arsip.smk()}"><i class="fa fa-check-square-o fa-2x"></i>SMK</a>
+                                <a href="@{Arsip.smk()}"><i class="fa fa-book fa-2x"></i>SMK</a>
                             </li>
                             <li>
-                                <a href="@{Arsip.mahasiswa()}"><i class="fa fa-check-square-o fa-2x"></i>Mahasiswa</a>
+                                <a href="@{Arsip.mahasiswa()}"><i class="fa fa-graduation-cap fa-2x"></i>Mahasiswa</a>
+                            </li>
+                            <li>
+                                <a href="@{Arsip.ditolak()}"><i class="fa fa-remove fa-2x"></i>Ditolak</a>
                             </li>                            
                         </ul>
                       </li> 

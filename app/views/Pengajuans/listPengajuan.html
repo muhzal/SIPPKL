@@ -10,8 +10,10 @@
 				<th>Aksi</th>
             </tr>
         </thead>
-        <tbody>       	
-       	#{list pengajuan}       		
+        <tbody> 
+        
+ 		%{disable=true;count=0}%
+       	#{list pengajuan}       
 		   	<tr>
 		   		<td>${_?.nosurat}</td>
 		   		<td>${_?.tglsurat?.format('dd MMM yyyy','id')}</td>
@@ -26,9 +28,17 @@
 		   			</button>
 		   			</a>
 		   			<button id="editpengajuan" class="btn-info" data-toggle="modal" data-target="#editModal" data-pengajuan="${_?.id}">
-		   				<i class=" fa fa-edit"></i> Edit
+		   				<i class=" fa fa-edit"></i> Ubah
 		   			</button>
-		   			<button id="HapusPengajuan" class="btn-danger" data-toggle="modal" data-target="#removeModal" data-pengajuan="${_?.id}">
+				   	#{list items:_?.siswa,as:'x'}
+		       			#{if x.status.id.equals(6)}
+							%{count++;}%
+		       			#{/if}       		
+		       		#{/list}
+		       		#{if count==_?.siswa.size()}
+		       		 %{disable=false}%
+		       		#{/if}
+		   			<button id="HapusPengajuan" class="#{if disable==true}btn-default#{/if}#{else}btn-danger#{/else}" data-toggle="modal" data-target="#removeModal" data-pengajuan="${_?.id}" #{if disable==true}disabled#{/if}>
 		   				<i class=" fa fa-trash"> </i> Arsip
 		   			</button>
 		   			

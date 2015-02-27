@@ -31,8 +31,8 @@
            		
 			</div>
            <div class="modal-footer">
-               <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-               <button type="submit" class="btn btn-primary" id="simpan">Save</button>
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Tutup</button>
+               <button type="submit" class="btn btn-primary" id="simpan"><i class="fa fa-spinner fa-pulse status-hidden" id="progress-ubah"></i> Simpan</button>
            </div>
            </form>
        </div>
@@ -51,8 +51,8 @@
            		
 			</div>
            <div class="modal-footer">
-               <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-               <button type="submit" class="btn btn-primary" id="simpan">Save</button>
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Tutup</button>
+               <button type="submit" class="btn btn-primary" id="simpan">Simpan</button>
            </div>
            </form>
        </div>
@@ -162,6 +162,8 @@
          });         
          $('#formubah').submit(function(e){
           	e.preventDefault();
+          	 
+			$('#progress-ubah').toggle();
           	var simpanubah=#{jsRoute @Siswas.tambah(':siswa') /};
           	var formstatus=$(this).serialize();
           	$.ajax({
@@ -170,6 +172,8 @@
           	type : 'POST',
           	success:function(data){                		                            
                   $('#ubahsiswa').modal('hide');
+                  
+      			$('#progress-ubah').toggle();
                   $('#tablesiswa').load(listsiswa({id:idpengajuan}));              	                    
           		}
           	});
@@ -187,7 +191,7 @@
 					$('#statusbutton').html('<i class="fa fa-save"></i> Simpan Status');						
 				}else{
 					$(this).prop({disabled:true});					
-					$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");
+					$('#statusbutton').html("<i class='fa fa-spinner fa-pulse'></i></i> Simpan Status");
 					var simpanubah=#{jsRoute @Siswas.simpanUbahStatus() /};
 					var formstatus=$(this).closest('td').find(':input[type="hidden"]').val();
 					var status_id=$(this).val();
@@ -197,7 +201,8 @@
 			          	type : 'GET',
 			          	data : {id : formstatus,status_id: status_id},
 			          	success:function(data){                		                            
-			                  $('#tablesiswa').load(listsiswa({id:idpengajuan}));    		                          	                    
+			                  $('#tablesiswa').load(listsiswa({id:idpengajuan}));    	
+								$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");	                          	                    
 			          		}
 			         });
 				}

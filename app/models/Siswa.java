@@ -27,7 +27,7 @@ public class Siswa extends Model {
 	
 	@ManyToOne
 	public Status status;
-	
+	public String nis;
 	public Date tglmulai;
 	
 	public Date tglselesai;

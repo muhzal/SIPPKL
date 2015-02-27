@@ -5,7 +5,15 @@
 	<div class="col-lg-8">
 		<input type="text" name="siswa.nama" value="${siswa?.nama}" class="form-control" />
 	</div>								
-</div>
+</div>	
+<div class="form-group">
+	<div class="col-lg-4">
+		<label class="control-label">NIS</label>
+	</div>
+	<div class="col-lg-8">
+		<input id="instansi" type="text" name="siswa.nis" class="form-control" value="${siswa?.nis}"  required/>
+	</div>								
+</div>			
 <div class="form-group">
 	<div class="col-lg-4">
 		<label class="control-label">Jenis Kelamin</label>
@@ -27,8 +35,13 @@
 		<label class="control-label">Divisi</label>
 	</div>
 	<div class="col-lg-8">
+														
+	#{select 'siswa.divisi.id', class:'form-control',value:siswa?.divisi.id}
+		#{list divisi}
+			#{option _?.id}${_?.kuota} - ${_?.namadivisi}#{/option}
+		#{/list}
+	#{/select}
 		
-		#{select 'siswa.divisi.id', items:divisi, valueProperty:'id', labelProperty:'namadivisi', value:siswa?.divisi?.id, class:'form-control'/}
 	</div>								
 </div>
 <input type="hidden" name="siswa.pengajuan.id" value="${siswa?.pengajuan?.id}">

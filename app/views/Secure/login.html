@@ -1,0 +1,35 @@
+#{extends 'Secure/layout.html' /}
+<div class="container">	
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">        
+            <div class="account-wall">
+            	<div class="row">
+		<div class="col-sm-12 col-md-12 text-center">
+		
+                <img class="profile-img" src="@{'public/images/logo.png'}"
+                    alt="">
+                <h3>Sistem Informasi Pendataan Kerja Praktik</h3>
+    	</div>
+	</div>
+                #{form @authenticate(), class:'form-signin'}
+                
+				#{if flash.error}
+					<p class="alert alert-danger">
+						&{flash.error}
+					</p>
+				#{/if}
+				#{if flash.success}
+					<p class="alert alert-success">
+						&{flash.success}
+					</p>
+				#{/if}
+                <input type="text" class="form-control" name="username" placeholder="username" required autofocus>
+                <input type="password" class="form-control" name="password" placeholder="Password" required>
+                                    
+                <button class="btn btn-lg btn-primary btn-block" type="submit">
+                   Masuk</button>
+                #{/form}
+            </div>
+        </div>
+    </div>
+</div>

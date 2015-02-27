@@ -5,7 +5,7 @@
 				<th>Nama Divisi</th>
 				<th width="10%">Kuota</th>
 				<th width="10%">Terisi</th>
-				<th width="18%">Aksi</th>
+				<th width="30%">Aksi</th>
             </tr>
         </thead>
         <tbody id="tablebody">        	
@@ -22,7 +22,7 @@
 		   			</button>
 		   			</a> 			
 			  			<button class="btn-info tombolubah" data-target="#modalubah" data-id="${_?.id}" data-toggle="modal" data-placement="top" title="edit data"><i class=" fa fa-pencil"></i> Ubah</button>
-			  			<button class="btn-danger" data-id="${_?.id}" data-target="#removemodal" data-toggle="modal" data-placement="top" title="hapus data"><i class=" fa fa-remove"></i> Hapus</button>
+			  			<button class="#{if _?.siswa.size()!=0}btn-default#{/if}#{else}btn-danger#{/else}" data-id="${_?.id}" data-target="#removemodal" data-toggle="modal" data-placement="top" title="hapus data"#{if _?.siswa.size()!=0}disabled#{/if}><i class=" fa fa-remove"></i> Hapus</button>
 			  		</td>
 			  	</tr>
 			 #{/list}

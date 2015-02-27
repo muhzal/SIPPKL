@@ -77,45 +77,24 @@
            		
 			</div>
            <div class="modal-footer">
-               <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-               <button type="submit" class="btn btn-primary" id="simpan">Save</button>
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Tutup</button>
+               <button type="submit" class="btn btn-primary" id="simpan"><i class="fa fa-spinner fa-pulse status-hidden" id="progress-ubah"></i> Simpan</button>
            </div>
            </form>
        </div>
    </div>
 </div>
-<div class="modal fade" id="modalstatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
-       <div class="modal-content">
-       	<form id="formstatus" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">
-           <div class="modal-header">
-               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-               <h4 class="modal-title" id="myModalLabel">Ubah Status Siswa</h4>
-           </div>
-                      
-           <div class="modal-body" id="bodyedit">
-           		
-			</div>
-           <div class="modal-footer">
-               <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-               <button type="submit" class="btn btn-primary" id="simpan">Save</button>
-           </div>
-           </form>
-       </div>
-   </div>
-</div>
+#{sertifikat /}
 <div class="modal fade" id="removemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
        <div class="modal-content">
-       	<form id="formhapus" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">
-           
-                      
+       	<form id="formhapus" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">                                
            <div class="modal-body text-center" id="HapusText">
            		<h4>Apakah anda yakin akan menghapus siswa ini?</h4>
 			</div>
            <div class="modal-footer">
                <button type="button"  class="btn btn-default" data-dismiss="modal">Batal</button>
-               <button type="submit" class="btn btn-danger" id="yeshapus">Hapus</button>
+               <button type="submit" class="btn btn-danger" id="yeshapus"><i class="fa fa-spinner fa-pulse status-hidden" id="progress-hapus"></i> Hapus</button>
            </div>
            </form>
        </div>
@@ -141,27 +120,22 @@
 //============LOAD TABLE SISWA==============================
 
 	 	$('#tablesiswa').load(listsiswa({id:idpengajuan}));
-
-//=====-============Modal Status==========================/		 	
-        $('#modalstatus').on('show.bs.modal', function (event) {
-           	 var button = $(event.relatedTarget);
-           	 var recipient = button.data('siswa');
-           	 var edit=#{jsAction @Siswas.ubahStatus(':id') /};
-           	 $('#bodyedit').load(edit({id : recipient}));                
-        });
 //=============FUNGSI MENYIMPAN FORM=============================//
         function simpan(e,formstatus){
            	e.preventDefault();
+
+  			$('#progress-icon').toggle();
            	var simpanStatus=#{jsRoute @Siswas.tambah(':siswa') /};            	
            	$.ajax({
 	           	url : simpanStatus.url(),
 	           	data : formstatus,
 	           	type : 'POST',
             	success:function(data){
+          			$('#progress-icon').toggle();
             		var x = $('#jumlahorang').text();
                     $('#tambahsiswa').modal('hide');
-                    $('#tablesiswa').load(listsiswa({id:idpengajuan}));
             		$('#jumlahorang').text(parseInt(x)+1);
+                    $('#tablesiswa').load(listsiswa({id:idpengajuan}));
             		}
             });            
 		}
@@ -170,11 +144,6 @@
        		var formstatus=$(this).serialize();
            	simpan(e,formstatus);
         });
-//===================MEngubah Status=============================        
-      	$('#formstatus').submit(function(e){
-       		var formstatus=$(this).serialize();
-           	simpan(e,formstatus);
-       	});	
 //================Tombol Tambah==================
    	  	$('#panelButton').click(function(e){
 			$('#tambahsiswa').modal('show');
@@ -186,12 +155,14 @@
   			idsiswa=$(event.relatedTarget).data('siswa');
   		});
     	$('#yeshapus').click(function(e){
+  			$('#progress-hapus').toggle();
     		e.preventDefault();
     		var funchapus=#{jsRoute @Siswas.hapus(':id') /};
     		$.ajax({
     			url: funchapus.url({id: idsiswa}),
     			type: 'POST',
     			success: function(){
+    	  			$('#progress-hapus').toggle();
     				var x = $('#jumlahorang').text();
     				$('#removemodal').modal('hide');
     				$('#tablesiswa').load(listsiswa({id:idpengajuan}));
@@ -199,6 +170,11 @@
     			}
     		});
     	});
+//=====================Tombol Cetak=====    	  
+    	$('#cetaksertifikat').on('show.bs.modal',function(event){
+  			idsiswa=$(event.relatedTarget).data('siswa');
+  			$('#idsiswa').val(idsiswa);
+  		});
 //=====================Tombol Ubah===================    		
 		$('#ubahsiswa').on('show.bs.modal', function (event) {
 			var button = $(event.relatedTarget);
@@ -208,6 +184,7 @@
          });         
          $('#formubah').submit(function(e){
           	e.preventDefault();
+  			$('#progress-ubah').toggle();
           	var simpanubah=#{jsRoute @Siswas.tambah(':siswa') /};
           	var formstatus=$(this).serialize();
           	$.ajax({
@@ -216,6 +193,7 @@
           	type : 'POST',
           	success:function(data){                		                            
                   $('#ubahsiswa').modal('hide');
+        			$('#progress-ubah').toggle();
                   $('#tablesiswa').load(listsiswa({id:idpengajuan}));              	                    
           		}
           	});
@@ -233,7 +211,7 @@
 					$('#statusbutton').html('<i class="fa fa-save"></i> Simpan Status');						
 				}else{
 					$(this).prop({disabled:true});					
-					$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");
+					$('#statusbutton').html("<i class='fa fa-spinner fa-pulse'></i></i> Simpan Status");
 					var simpanubah=#{jsRoute @Siswas.simpanUbahStatus() /};
 					var formstatus=$(this).closest('td').find(':input[type="hidden"]').val();
 					var status_id=$(this).val();
@@ -242,7 +220,8 @@
 			          	url : simpanubah.url(),
 			          	type : 'GET',
 			          	data : {id : formstatus,status_id: status_id},
-			          	success:function(data){                		                            
+			          	success:function(data){                		       
+							$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");
 			                  $('#tablesiswa').load(listsiswa({id:idpengajuan}));    		                          	                    
 			          		}
 			         });

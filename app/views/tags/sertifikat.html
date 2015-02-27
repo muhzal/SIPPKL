@@ -1,0 +1,47 @@
+
+<div class="modal fade" id="cetaksertifikat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+       	<form action="@{Laporan.sertifikat()}" id="formcetak" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">
+           <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+               <h4 class="modal-title" id="myModalLabel">Cetak Sertifikat</h4>
+           </div>
+                      
+           <div class="modal-body" id="bodysertifikat">
+       		
+				<div class="form-group">
+					<div class="col-lg-3">
+						<label class="control-label">Penanda Tangan</label>
+					</div>
+					<div class="col-lg-9">
+						<input type="text" name="atasnama" class="form-control" required/>
+					</div>								
+				</div> 	
+				<div class="form-group">
+					<div class="col-lg-3">
+						<label class="control-label">Jabatan</label>
+					</div>
+					<div class="col-lg-9">
+						<input type="text" name="jabatan" class="form-control" required/>
+					</div>								
+				</div> 	
+				<div class="form-group">
+					<div class="col-lg-3">
+						<label class="control-label">NIK</label>
+					</div>
+					<div class="col-lg-9">
+						<input type="text" name="nik" class="form-control" required/>
+						
+			<input type="hidden" name="id" id="idsiswa" />
+					</div>								
+				</div> 	
+			</div>
+           <div class="modal-footer">
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Tutup</button>
+               <button type="submit" class="btn btn-primary" id="cetak">Cetak</button>
+           </div>
+           </form>
+       </div>
+   </div>
+</div>

@@ -5,7 +5,7 @@
 	<div class="col-lg-12">	
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<i class=" fa fa-th-list "></i> Data PKL Mahasiswa
+				<i class=" fa fa-th-list "></i> Data Kerja Praktik Mahasiswa
 			</div>	
 			<div class="panel-body">
 				<div class="row">
@@ -23,6 +23,8 @@
 		</div>
 	</div>
 </div>	
+
+#{sertifikat /}
 #{modal modalName:'modalstatus',title:'Ubah Status', modalBody:'bodyedit' /}
 <div class="modal fade" id="ubahsiswa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
@@ -37,8 +39,8 @@
            		
 			</div>
            <div class="modal-footer">
-               <button type="button"  class="btn btn-default" data-dismiss="modal">Close</button>
-               <button type="submit" class="btn btn-primary" id="simpan">Save</button>
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Tutup</button>
+               <button type="submit" class="btn btn-primary" id="simpan"><i class="fa fa-spinner fa-pulse status-hidden" id="progress-ubah"></i> Simpan</button>
            </div>
            </form>
        </div>
@@ -55,7 +57,7 @@
 			</div>
            <div class="modal-footer">
                <button type="button"  class="btn btn-default" data-dismiss="modal">Batal</button>
-               <button type="submit" class="btn btn-danger" id="yeshapus">Hapus</button>
+               <button type="submit" class="btn btn-danger" id="yeshapus"><i class="fa fa-spinner fa-pulse status-hidden" id="progress-hapus"></i> Hapus</button>
            </div>
            </form>
        </div>
@@ -82,32 +84,34 @@
 	  			idsiswa=$(event.relatedTarget).data('siswa');	  			
 	  		});
 	    	$('#yeshapus').click(function(e){
+
+    			$('#progress-hapus').toggle();
 	    		  e.preventDefault();
 	    		  var funchapus=#{jsRoute @Siswas.hapus(':id') /};
 	    		  $.ajax({
 	    				url: funchapus.url({id: idsiswa}),
 	    				type: 'POST',
 	    				success: function(){
+
+	            			$('#progress-hapus').toggle();
 	    					$('#removemodal').modal('hide');
 	    					$('#contentmahasiswa').load(listmahasiswa());
 	    				}
 	  			});
 	    	 });
-	    	$('.status-siswa').each(function(){
-	    		$(this).show();	    		
-	    	});
     		$('#statusbutton').click(function(){
 				$('.status-siswa').each(function(){
-			 		$(this).toggle();	    		
+			 		$(this).toggle();	    
+			 		
 			 	});
     			$('.status-kp').each(function(){
     				$(this).toggle();
     				if($(this).prop("disabled")){
-    					$(this).prop({disabled:false});    					
+    					$(this).prop({disabled:false});						
     					$('#statusbutton').html('<i class="fa fa-save"></i> Simpan Status');						
     				}else{
-    					$(this).prop({disabled:true});
-    					$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");
+    					$(this).prop({disabled:true});				
+    					$('#statusbutton').html("<i class='fa fa-spinner fa-pulse'></i></i> Simpan Status");
     					var simpanubah=#{jsRoute @Siswas.simpanUbahStatus() /};
     					var formstatus=$(this).closest('td').find(':input[type="hidden"]').val();
     					var status_id=$(this).val();			      
@@ -115,34 +119,15 @@
     			          	url : simpanubah.url(),
     			          	type : 'GET',
     			          	data : {id : formstatus,status_id: status_id},
-    			          	success:function(data){                		                            
-    			          		$('#contentmahasiswa').load(listmahasiswa());			                          	                    
+    			          	success:function(data){
+    	                    	$('#contentmahasiswa').load(listmahasiswa());
+    	    					$('#statusbutton').html("<i class='fa fa-refresh'></i> Ubah Status");			                          	                    
     			          		}
     			         });
     				}
     			});
     		});
-	//=====Ketika Modal Status muncul========/		 	
-            $('#modalstatus').on('show.bs.modal', function (event) {
-           	 	var button = $(event.relatedTarget);
-           	 	var recipient = button.data('siswa');
-           	 	var edit=#{jsAction @Siswas.ubahStatus(':id') /};
-           	 	$('#bodyedit').load(edit({id : recipient}));
-           	});
-            $('#formModal').submit(function(e){
-            	e.preventDefault();
-            	var simpanStatus=#{jsRoute @Siswas.simpanStatus(':siswa') /};
-            	var formstatus=$(this).serialize();
-            	$.ajax({
-	            	url : simpanStatus.url(),
-	            	data : formstatus,
-	            	type : 'PUT',
-	            	success:function(data){                		                            
-                    	$('#modalstatus').modal('hide');
-                    	$('#contentmahasiswa').load(listmahasiswa());
-            		}
-            	});
-            });
+
             $('#ubahsiswa').on('show.bs.modal', function (event) {
             	 var button = $(event.relatedTarget);
             	 var recipient = button.data('siswa');
@@ -151,20 +136,26 @@
             });
              $('#formubah').submit(function(e){
              	e.preventDefault();
+    			$('#progress-ubah').toggle();
              	var simpanubah=#{jsRoute @Siswas.tambah(':siswa') /};
              	var formstatus=$(this).serialize();
              	$.ajax({
 	             	url : simpanubah.url(),
 	             	data : formstatus,
 	             	type : 'POST',
-	             	success:function(data){                		                            
+	             	success:function(data){               
+	        			$('#progress-ubah').toggle();
 	                     $('#ubahsiswa').modal('hide');
 	                     $('#contentmahasiswa').load(listmahasiswa());                   	                    
 	             	}
              	});
           	});
       
-
+           //=====================Tombol Cetak=====    	  
+         	$('#cetaksertifikat').on('show.bs.modal',function(event){
+       			idsiswa=$(event.relatedTarget).data('siswa');
+       			$('#idsiswa').val(idsiswa);
+       		});
     	 
   	});
   	</script>

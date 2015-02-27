@@ -6,7 +6,8 @@ import models.Divisi;
 import models.Siswa;
 import models.Status;
 import play.mvc.Controller;
-
+import play.mvc.With;
+@With(Secure.class)
 public class Divisis extends Controller {
 	public static void index(){
 		render();
@@ -38,8 +39,8 @@ public class Divisis extends Controller {
 		render(divisi);
 	}
 	public static void listsiswa(long id){
-		List<Siswa> siswa=Siswa.find("divisi.id=? and status.id=4 or status.id=5 and divisi.id=?",id,id).fetch();
-		List<Status> status=Status.findAll();
+		List<Siswa> siswa=Siswa.find("divisi.id=? and status.id!=6 and status.id!=7 and status.id!=2 order by status.id",id).fetch();
+		List<Status> status=Status.find("id!=7").fetch();
 		render(siswa,status);
 	}
 }

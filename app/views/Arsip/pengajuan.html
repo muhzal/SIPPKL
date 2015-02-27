@@ -16,6 +16,21 @@
 		</div>
 	</div>
 </div>
+<div class="modal fade" id="restoreModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+       	<form id="formhapus" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">                                
+           <div class="modal-body text-center" id="HapusText">
+           		<h4>Apakah anda yakin akan merestore pengajuan ini?</h4>
+			</div>
+           <div class="modal-footer">
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Batal</button>
+               <button type="submit" class="btn btn-danger" id="yesButton">Restore</button>
+           </div>
+           </form>
+       </div>
+   </div>
+</div>
 #{modal title:'Edit Pengajuan',modalName:'editModal',modalBody:'bodyedit'/}
 
 
@@ -61,6 +76,23 @@ $(document).ready(function () {
   				}
   		    });  						  				
   		});
+  	//====================Restore Modal
+  		$('#restoreModal').on('show.bs.modal',function(event){
+  			idarsip=$(event.relatedTarget).data('pengajuan');
+  		});
+  		$('#yesButton').click(function(e){
+  			e.preventDefault();
+  			var arsipPengajuan=#{jsRoute @Pengajuans.arsip(':id') /};
+  			$.ajax({
+  				url: arsipPengajuan.url({id: idarsip}),
+  				type: 'POST',
+  				success: function(){
+  					$('#restoreModal').modal('hide');
+  					$('#listpengajuan').load(list());
+  				}
+  			});
+  		});
+  		
 });
 </script>
 #{/set}

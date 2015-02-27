@@ -5,12 +5,25 @@
 
 </div>	
 #{/set}
-#{panel title:'Data Pengajuan Kerja Praktik', buttonTitle: 'Tambah Pengajuan', buttonLink: 'tambah' /}	
+#{panel title:'Data Pengajuan Kerja Praktik', buttonTitle: ' Tambah Pengajuan', buttonLink: 'tambah' /}	
 
 <!-- Modal -->
 #{modal title:'Edit Pengajuan',modalName:'editModal',modalBody:'bodyedit'/}
-#{remove title:'Hapus Pengajuan',id:'removeModal'/}
-
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+       <div class="modal-content">
+       	<form id="formhapus" class="form-horizontal" enctype="application/x-www-form-urlencoded" method="post">                                
+           <div class="modal-body text-center" id="HapusText">
+           		<h4>Apakah anda yakin akan mengarsipkan pengajuan ini?</h4>
+			</div>
+           <div class="modal-footer">
+               <button type="button"  class="btn btn-default" data-dismiss="modal">Batal</button>
+               <button type="submit" class="btn btn-danger" id="yesButton">Arsipkan</button>
+           </div>
+           </form>
+       </div>
+   </div>
+</div>
 <!-- More CSS -->
 #{set 'moreStyles'}
 <link href="@{'public/themes2/css/jquery.dataTables.min.css' }" rel="stylesheet" type="text/css">
@@ -42,6 +55,7 @@
   	//=====Simpan Edit Pengajuan=======//
   		$('#formModal').submit(function(e){
   			e.preventDefault();
+  			$('#progress-icon').toggle();
   			var simpanEdit=#{jsRoute @Pengajuans.simpanEdit(':pengajuan') /};
   			var formModal=$('#formModal').serialize();
   			$.ajax({
@@ -50,6 +64,7 @@
   				type: 'POST',
   				success: function(){
   					$('#editModal').modal('hide');
+  					$('#progress-icon').toggle();
   					loadPengajuan.load(listpengajuan());
   				}
   		    });  						  				

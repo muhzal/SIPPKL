@@ -12,7 +12,7 @@ public class Divisi extends Model {
 	public String namadivisi;
 	public int kuota;
 	public int terisi;
-	
+	public int terdaftar;
 	@OneToMany(mappedBy="divisi",cascade=CascadeType.ALL)
 	public Collection<Siswa> siswa;
 }

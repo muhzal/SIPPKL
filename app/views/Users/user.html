@@ -55,7 +55,8 @@
   	<script src="@{'public/themes2/js/jquery.dataTables.min.js'}"></script>
   	
   	<script>
-  	$(document).ready(function () {  	
+  	$(document).ready(function () {  
+  		
  	//=====Load list user=====//
 		 	var list=#{jsAction @Users.listuser() /}; 		
 		 	$('#datauser').load(list());
